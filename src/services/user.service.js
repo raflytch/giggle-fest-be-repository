@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 import * as userRepository from "../repositories/user.repository.js";
 import { generateToken } from "../utils/token.js";
+import { sendVerificationEmail } from "../utils/email.service.js";
 
 // Register a new user
 export const register = async (userData) => {
@@ -10,6 +12,7 @@ export const register = async (userData) => {
   }
 
   const hashedPassword = await bcrypt.hash(userData.password, 10);
+  const verificationToken = crypto.randomBytes(32).toString("hex");
 
   const auth = await userRepository.createAuth({
     email: userData.email,
@@ -21,12 +24,31 @@ export const register = async (userData) => {
     ...userData,
     password: hashedPassword,
     authId: auth.id,
+    verificationToken,
+    isVerified: false,
   });
+
+  await sendVerificationEmail(userData.email, verificationToken);
 
   const { password, ...userWithoutPassword } = user;
   const token = generateToken(user);
 
   return { user: userWithoutPassword, token };
+};
+
+export const verifyEmail = async (verificationToken) => {
+  const user = await userRepository.findUserByVerificationToken(
+    verificationToken
+  );
+
+  if (!user) {
+    throw new Error("Invalid verification token");
+  }
+
+  return userRepository.updateUser(user.id, {
+    isVerified: true,
+    verificationToken: null,
+  });
 };
 
 // Login a user
@@ -36,9 +58,15 @@ export const login = async (email, password) => {
     throw new Error("User not found");
   }
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
+  const isValidPassword = await bcrypt.hash(password, user.password);
   if (!isValidPassword) {
     throw new Error("Invalid password");
+  }
+
+  if (!user.isVerified) {
+    throw new Error(
+      "Please verify your email before logging in. Check your email for verification link."
+    );
   }
 
   const { password: userPassword, ...userWithoutPassword } = user;

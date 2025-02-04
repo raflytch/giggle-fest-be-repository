@@ -21,6 +21,8 @@ model User {
   age          Int
   phoneNumber  String
   role         String       @default("user")
+  isVerified   Boolean      @default(false)
+  verificationToken String? @unique
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   tickets      Ticket[]

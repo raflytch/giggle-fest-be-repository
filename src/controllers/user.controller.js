@@ -16,7 +16,11 @@ export const loginUser = async (req, res) => {
     const result = await userService.login(email, password);
     return successResponse(res, result, "Login successful");
   } catch (error) {
-    return errorResponse(res, error.message, 401);
+    let status = 401;
+    if (error.message.includes("verify your email")) {
+      status = 403;
+    }
+    return errorResponse(res, error.message, status);
   }
 };
 
@@ -57,6 +61,79 @@ export const getUserDetails = async (req, res) => {
       return errorResponse(res, "User not found", 404);
     }
     return successResponse(res, user, "User retrieved successfully");
+  } catch (error) {
+    return errorResponse(res, error.message, 400);
+  }
+};
+
+// Verify email
+export const verifyEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const user = await userService.verifyEmail(token);
+
+    // Send HTML response for successful verification
+    const htmlResponse = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+          }
+          .container {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+          }
+          .success-icon {
+            color: #4CAF50;
+            font-size: 48px;
+            margin-bottom: 20px;
+          }
+          h1 {
+            color: #333;
+            margin-bottom: 20px;
+          }
+          p {
+            color: #666;
+            margin-bottom: 30px;
+          }
+          .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+          }
+          .button:hover {
+            background-color: #357abd;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="success-icon">✓</div>
+          <h1>Email Verified Successfully!</h1>
+          <p>Your account has been verified. You can now log in to access all features.</p>
+          <a href="${process.env.FRONTEND_URL}/login" class="button">Go to Login</a>
+        </div>
+      </body>
+      </html>
+    `;
+
+    res.send(htmlResponse);
   } catch (error) {
     return errorResponse(res, error.message, 400);
   }
