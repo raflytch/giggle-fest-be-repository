@@ -47,8 +47,21 @@ export const deleteUserDetails = async (req, res) => {
 
 export const getAllUserDetails = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
-    return successResponse(res, users, "Users retrieved successfully");
+    const { page, limit, search } = req.query;
+    const result = await userService.getAllUsers({
+      page: parseInt(page) || 1,
+      limit: parseInt(limit) || 10,
+      search: search || "",
+    });
+
+    return successResponse(
+      res,
+      {
+        users: result.users,
+        metadata: result.metadata,
+      },
+      "Users retrieved successfully"
+    );
   } catch (error) {
     return errorResponse(res, error.message, 400);
   }

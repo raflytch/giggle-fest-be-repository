@@ -27,7 +27,22 @@ export const findUserByEmail = (email) =>
   });
 
 // Find user by id
-export const findUserById = (id) => prisma.user.findUnique({ where: { id } });
+export const findUserById = (id) =>
+  prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      age: true,
+      phoneNumber: true,
+      role: true,
+      isVerified: true,
+      createdAt: true,
+      updatedAt: true,
+      authId: true,
+    },
+  });
 
 // Update user
 export const updateUser = (id, data) =>
@@ -37,7 +52,52 @@ export const updateUser = (id, data) =>
 export const deleteUser = (id) => prisma.user.delete({ where: { id } });
 
 // Find all users
-export const findAllUsers = () => prisma.user.findMany();
+export const findAllUsers = async ({ page = 1, limit = 10, search = "" }) => {
+  const skip = (page - 1) * limit;
+
+  const where = {
+    email: {
+      contains: search,
+      mode: "insensitive",
+    },
+  };
+
+  const [users, total] = await Promise.all([
+    prisma.user.findMany({
+      where,
+      skip,
+      take: parseInt(limit),
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        age: true,
+        phoneNumber: true,
+        role: true,
+        isVerified: true,
+        createdAt: true,
+        updatedAt: true,
+        authId: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.user.count({ where }),
+  ]);
+
+  const totalPages = Math.ceil(total / limit);
+
+  return {
+    users,
+    metadata: {
+      total,
+      totalPages,
+      currentPage: parseInt(page),
+      limit: parseInt(limit),
+    },
+  };
+};
 
 // Find user by verification token
 export const findUserByVerificationToken = (verificationToken) =>

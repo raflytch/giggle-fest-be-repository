@@ -87,7 +87,15 @@ export const updateUserById = async (id, data) => {
 export const deleteUserById = (id) => userRepository.deleteUser(id);
 
 // Get all users
-export const getAllUsers = () => userRepository.findAllUsers();
+export const getAllUsers = async (queryParams) => {
+  return userRepository.findAllUsers(queryParams);
+};
 
 // Get user by id
-export const getUserById = (id) => userRepository.findUserById(id);
+export const getUserById = async (id) => {
+  const user = await userRepository.findUserById(id);
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+};
