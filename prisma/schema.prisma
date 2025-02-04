@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  password     String
+  name         String
+  age          Int
+  phoneNumber  String
+  role         String       @default("user")
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  tickets      Ticket[]
+  reviews      Review[]
+  notifications Notification[]
+  cart         Cart[]
+  auth         Auth?        @relation("UserAuth", fields: [authId], references: [id])
+  authId       Int?         @unique
+
+  @@map("users")
+}
+
+model Auth {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  password     String
+  phoneNumber  String?
+  user         User?    @relation("UserAuth")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("auth")
+}
+
+model Ticket {
+  id          Int          @id @default(autoincrement())
+  name        String
+  price       Float
+  quantity    Int
+  userId      Int
+  user        User         @relation(fields: [userId], references: [id])
+  eventId     Int
+  event       Event        @relation(fields: [eventId], references: [id])
+  categoryId  Int
+  category    Category     @relation(fields: [categoryId], references: [id])
+  payments    Payment[]
+  imageUrl    String?      
+  artist      String?      
+  reviews     Review[]
+  cart        Cart[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Event {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  date        DateTime
+  location    String
+  imageUrl    String?
+  tickets     Ticket[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Category {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  tickets   Ticket[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Review {
+  id        Int          @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  ticketId  Int
+  ticket    Ticket       @relation(fields: [ticketId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Notification {
+  id        Int          @id @default(autoincrement())
+  message   String
+  isRead    Boolean      @default(false)
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Cart {
+  id        Int          @id @default(autoincrement())
+  userId    Int
+  user      User         @relation(fields: [userId], references: [id])
+  ticketId  Int
+  ticket    Ticket       @relation(fields: [ticketId], references: [id])
+  quantity  Int
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model PromoCode {
+  id        Int          @id @default(autoincrement())
+  code      String       @unique
+  discount  Float
+  validFrom DateTime
+  validTo   DateTime
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Payment {
+  id          Int          @id @default(autoincrement())
+  ticketId    Int
+  ticket      Ticket       @relation(fields: [ticketId], references: [id]) 
+  amount      Float
+  status      String
+  paymentDate DateTime     @default(now())
+  Date        DateTime     @default(now())
+}
