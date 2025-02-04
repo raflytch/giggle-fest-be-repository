@@ -1,7 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import authRoutes from "./routes/auth.routes.js";
-import userRoutes from "./routes/user.routes.js";
+import routes from "./routes/index.routes.js";
 import {
   errorMiddleware,
   notFoundMiddleware,
@@ -12,9 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/users", userRoutes);
+app.use("/api/v1", routes);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
