@@ -47,3 +47,8 @@ export const getUsersQuerySchema = z
       message: "Page and limit must be positive numbers",
     }
   );
+
+// resend verification zod
+export const resendVerificationSchema = z.object({
+  email: z.string().email("Invalid email format"),
+});

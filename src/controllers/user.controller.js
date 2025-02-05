@@ -1,6 +1,7 @@
 import * as userService from "../services/user.service.js";
 import { successResponse, errorResponse } from "../utils/response.js";
 
+// Register user
 export const registerUser = async (req, res) => {
   try {
     const result = await userService.register(req.body);
@@ -10,6 +11,22 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// Resend verification email
+export const resendVerificationEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const result = await userService.resendVerification(email);
+    return successResponse(
+      res,
+      result,
+      "Verification email resent successfully"
+    );
+  } catch (error) {
+    return errorResponse(res, error.message, 400);
+  }
+};
+
+// Login user
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
