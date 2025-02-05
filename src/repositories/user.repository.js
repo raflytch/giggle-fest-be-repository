@@ -102,3 +102,9 @@ export const findAllUsers = async ({ page = 1, limit = 10, search = "" }) => {
 // Find user by verification token
 export const findUserByVerificationToken = (verificationToken) =>
   prisma.user.findUnique({ where: { verificationToken } });
+
+// Find user by reset token
+export const findUserByResetToken = (resetToken) =>
+  prisma.user.findFirst({
+    where: { resetToken },
+  });

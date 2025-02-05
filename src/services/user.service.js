@@ -77,12 +77,12 @@ export const resendVerification = async (email) => {
 export const login = async (email, password) => {
   const user = await userRepository.findUserByEmail(email);
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Invalid email or password");
   }
 
-  const isValidPassword = await bcrypt.hash(password, user.password);
+  const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    throw new Error("Invalid password");
+    throw new Error("Invalid email or password");
   }
 
   if (!user.isVerified) {
@@ -99,9 +99,24 @@ export const login = async (email, password) => {
 
 // Update a user
 export const updateUserById = async (id, data) => {
-  if (data.password) {
-    data.password = await bcrypt.hash(data.password, 10);
+  const allowedFields = ["name", "age", "phoneNumber"];
+  const invalidFields = Object.keys(data).filter(
+    (key) => !allowedFields.includes(key)
+  );
+
+  if (invalidFields.length > 0) {
+    throw new Error(
+      `Invalid fields provided: ${invalidFields.join(
+        ", "
+      )}. Only name, age, and phoneNumber can be updated.`
+    );
   }
+
+  const existingUser = await userRepository.findUserById(id);
+  if (!existingUser) {
+    throw new Error("User not found");
+  }
+
   return userRepository.updateUser(id, data);
 };
 

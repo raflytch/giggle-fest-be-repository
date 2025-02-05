@@ -43,12 +43,33 @@ export const loginUser = async (req, res) => {
 
 export const updateUserDetails = async (req, res) => {
   try {
-    const result = await userService.updateUserById(
-      parseInt(req.params.id),
-      req.body
-    );
-    return successResponse(res, result, "User updated successfully");
+    const userId = parseInt(req.params.id);
+
+    if (req.user.id !== userId) {
+      return errorResponse(
+        res,
+        "Unauthorized - Can only update own profile",
+        403
+      );
+    }
+
+    const result = await userService.updateUserById(userId, req.body);
+
+    const {
+      password,
+      resetToken,
+      resetOTP,
+      resetOTPExpires,
+      verificationToken,
+      ...safeUser
+    } = result;
+
+    return successResponse(res, safeUser, "User updated successfully");
   } catch (error) {
+    if (error.name === "ZodError") {
+      const errorMessage = error.errors.map((err) => err.message).join(", ");
+      return errorResponse(res, errorMessage, 400);
+    }
     return errorResponse(res, error.message, 400);
   }
 };
