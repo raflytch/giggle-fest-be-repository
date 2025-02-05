@@ -14,23 +14,26 @@ datasource db {
 }
 
 model User {
-  id           Int          @id @default(autoincrement())
-  email        String       @unique
-  password     String
-  name         String
-  age          Int
-  phoneNumber  String
-  role         String       @default("user")
-  isVerified   Boolean      @default(false)
-  verificationToken String? @unique
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  tickets      Ticket[]
-  reviews      Review[]
-  notifications Notification[]
-  cart         Cart[]
-  auth         Auth?        @relation("UserAuth", fields: [authId], references: [id])
-  authId       Int?         @unique
+  id                Int       @id @default(autoincrement())
+  email             String    @unique
+  password          String
+  name              String
+  age               Int
+  phoneNumber       String
+  role              String    @default("user")
+  isVerified        Boolean   @default(false)
+  verificationToken String?   @unique
+  resetToken        String?   @unique
+  resetOTP          String?
+  resetOTPExpires   DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  tickets           Ticket[]
+  reviews           Review[]
+  notifications     Notification[]
+  cart              Cart[]
+  auth              Auth?     @relation("UserAuth", fields: [authId], references: [id])
+  authId            Int?      @unique
 
   @@map("users")
 }

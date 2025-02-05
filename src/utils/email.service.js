@@ -116,54 +116,47 @@ export const sendVerificationEmail = async (email, verificationToken) => {
   }
 };
 
-export const sendPasswordResetEmail = async (email, resetToken) => {
-  try {
-    const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-
-    const mailOptions = {
-      from: {
-        name: process.env.EMAIL_FROM_NAME || "Your Company Name",
-        address: process.env.EMAIL_USER,
-      },
-      to: email,
-      subject: "Reset Your Password",
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-           
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>Reset Your Password</h1>
-            </div>
-            <div class="content">
-              <h2>Hello!</h2>
-              <p>You requested to reset your password. Click the button below to create a new password:</p>
-              <center>
-                <a href="${resetUrl}" class="button">Reset Password</a>
-              </center>
-              <p>If you didn't request this, please ignore this email.</p>
-              <p>This link will expire in 1 hour.</p>
-            </div>
-            <div class="footer">
-              <p>© ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
-            </div>
+export const sendResetOTPEmail = async (email, otp) => {
+  const mailOptions = {
+    from: {
+      name: process.env.EMAIL_FROM_NAME || "Your Company Name",
+      address: process.env.EMAIL_USER,
+    },
+    to: email,
+    subject: "Your Password Reset OTP",
+    html: `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+          .header { text-align: center; padding: 20px; background-color: #4a90e2; color: white; }
+          .content { padding: 30px; background-color: white; border-radius: 5px; margin: 20px 0; }
+          .otp { font-size: 32px; font-weight: bold; text-align: center; color: #4a90e2; margin: 20px 0; letter-spacing: 5px; }
+          .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Password Reset OTP</h1>
           </div>
-        </body>
-        </html>
-      `,
-    };
+          <div class="content">
+            <h2>Hello!</h2>
+            <p>Your OTP for password reset is:</p>
+            <div class="otp">${otp}</div>
+            <p>This OTP will expire in 15 minutes.</p>
+            <p>If you didn't request this reset, please ignore this email.</p>
+          </div>
+          <div class="footer">
+            <p>© ${new Date().getFullYear()} Your Company Name. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+      </html>
+    `,
+  };
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Password reset email sent:", info.messageId);
-
-    return info;
-  } catch (error) {
-    console.error("Error sending password reset email:", error);
-    throw error;
-  }
+  return transporter.sendMail(mailOptions);
 };
