@@ -51,6 +51,28 @@ export const verifyEmail = async (verificationToken) => {
   });
 };
 
+export const resendVerification = async (email) => {
+  const user = await userRepository.findUserByEmail(email);
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  if (user.isVerified) {
+    throw new Error("User is already verified");
+  }
+
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+
+  await userRepository.updateUser(user.id, {
+    verificationToken,
+    updatedAt: new Date(),
+  });
+
+  await sendVerificationEmail(user.email, verificationToken);
+
+  return { message: "Verification email sent successfully" };
+};
+
 // Login a user
 export const login = async (email, password) => {
   const user = await userRepository.findUserByEmail(email);
