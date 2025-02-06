@@ -23,6 +23,8 @@ router.get(
   getAllEvents
 );
 
+router.get("/:id", getEventById);
+
 router.use(authMiddleware);
 
 router.post(
@@ -31,8 +33,6 @@ router.post(
   validateZodRequest({ body: createEventSchema }),
   createEvent
 );
-
-router.get("/:id", getEventById);
 
 router.patch(
   "/:id",
