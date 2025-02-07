@@ -9,6 +9,10 @@ import { successResponse, errorResponse } from "../utils/response.js";
 
 export const createCategory = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return errorResponse(res, "Unauthorized", 403);
+    }
+
     const category = await createCategoryService(req.body);
     return successResponse(res, category, "Category created successfully", 201);
   } catch (error) {
@@ -42,6 +46,10 @@ export const getCategoryById = async (req, res) => {
 
 export const updateCategory = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return errorResponse(res, "Unauthorized", 403);
+    }
+
     const category = await updateCategoryService(
       parseInt(req.params.id),
       req.body
@@ -54,6 +62,10 @@ export const updateCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return errorResponse(res, "Unauthorized", 403);
+    }
+
     await deleteCategoryService(parseInt(req.params.id));
     return successResponse(res, null, "Category deleted successfully");
   } catch (error) {
