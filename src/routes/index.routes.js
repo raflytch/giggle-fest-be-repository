@@ -6,6 +6,7 @@ import categoryRoutes from "./category.routes.js";
 import ticketRoutes from "./ticket.routes.js";
 import reviewRoutes from "./review.routes.js";
 import cartRoutes from "./cart.routes.js";
+import paymentRoutes from "./payment.routes.js";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/categories", categoryRoutes);
 router.use("/tickets", ticketRoutes);
 router.use("/reviews", reviewRoutes);
 router.use("/cart", cartRoutes);
+router.use("/payments", paymentRoutes);
 
 export default router;
