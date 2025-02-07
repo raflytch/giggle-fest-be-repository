@@ -5,6 +5,8 @@ export const createPayment = async (data) => {
   return prisma.payment.create({
     data: {
       amount: data.amount,
+      originalAmount: data.originalAmount,
+      discount: data.discount,
       status: data.status,
       orderId: data.orderId,
       user: {
