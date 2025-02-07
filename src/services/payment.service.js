@@ -103,31 +103,51 @@ export const initializePayment = async (
 
 export const checkAndUpdatePaymentStatus = async (orderId) => {
   try {
-    const transactionStatus = await core.transaction.status(orderId);
-    let paymentStatus;
-
-    if (transactionStatus.transaction_status === "capture") {
-      paymentStatus =
-        transactionStatus.fraud_status === "challenge"
-          ? "challenge"
-          : "success";
-    } else if (transactionStatus.transaction_status === "settlement") {
-      paymentStatus = "success";
-    } else if (
-      ["cancel", "deny", "expire"].includes(
-        transactionStatus.transaction_status
-      )
-    ) {
-      paymentStatus = "failed";
-    } else {
-      paymentStatus = "pending";
+    const payment = await paymentRepository.findPaymentByOrderId(orderId);
+    if (!payment) {
+      throw new Error("Payment not found");
     }
 
-    const updatedPayment = await paymentRepository.updatePaymentStatus(
-      orderId,
-      paymentStatus
-    );
-    return updatedPayment;
+    if (payment.status === "success" || payment.status === "failed") {
+      return payment;
+    }
+
+    try {
+      const transactionStatus = await core.transaction.status(orderId);
+      let paymentStatus;
+
+      if (transactionStatus.transaction_status === "capture") {
+        paymentStatus =
+          transactionStatus.fraud_status === "challenge"
+            ? "challenge"
+            : "success";
+      } else if (transactionStatus.transaction_status === "settlement") {
+        paymentStatus = "success";
+      } else if (
+        ["cancel", "deny", "expire"].includes(
+          transactionStatus.transaction_status
+        )
+      ) {
+        paymentStatus = "failed";
+      } else {
+        paymentStatus = "pending";
+      }
+
+      const updatedPayment = await paymentRepository.updatePaymentStatus(
+        orderId,
+        paymentStatus
+      );
+      return updatedPayment;
+    } catch (error) {
+      const paymentDate = new Date(payment.paymentDate);
+      const now = new Date();
+      const hoursDiff = (now - paymentDate) / (1000 * 60 * 60);
+
+      if (hoursDiff > 24) {
+        return await paymentRepository.updatePaymentStatus(orderId, "failed");
+      }
+      return payment;
+    }
   } catch (error) {
     console.error("Payment status check error:", error);
     throw new Error("Failed to check payment status: " + error.message);
