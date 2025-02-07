@@ -18,21 +18,12 @@ export const initializePayment = async (req, res) => {
   }
 };
 
-export const handleNotification = async (req, res) => {
-  try {
-    const payment = await paymentService.handlePaymentNotification(req.body);
-    return successResponse(res, payment, "Payment notification processed");
-  } catch (error) {
-    console.error("Payment notification error:", error);
-    return errorResponse(res, error.message, 400);
-  }
-};
-
 export const getAllPayments = async (req, res) => {
   try {
     if (req.user.role !== "admin") {
       return errorResponse(res, "Unauthorized", 403);
     }
+
     const payments = await paymentService.getAllPayments(req.query);
     return successResponse(res, payments);
   } catch (error) {
@@ -42,6 +33,10 @@ export const getAllPayments = async (req, res) => {
 
 export const getPaymentById = async (req, res) => {
   try {
+    if (req.user.role !== "admin") {
+      return errorResponse(res, "Unauthorized", 403);
+    }
+
     const payment = await paymentService.getPaymentById(
       Number(req.params.id),
       req.user.id

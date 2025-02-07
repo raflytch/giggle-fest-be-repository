@@ -1,16 +1,25 @@
 import { randomBytes } from "crypto";
 import * as paymentRepository from "../repositories/payment.repository.js";
 import * as ticketRepository from "../repositories/ticket.repository.js";
-import { snap } from "../libs/midtrans.config.js";
+import * as userRepository from "../repositories/user.repository.js";
+import { snap, core } from "../libs/midtrans.config.js";
 
 export const generateOrderId = () => {
   return `ORDER-${randomBytes(5).toString("hex").toUpperCase()}`;
 };
 
 export const initializePayment = async (userId, { ticketId, quantity }) => {
-  const ticket = await ticketRepository.findTicketById(ticketId);
+  const [ticket, user] = await Promise.all([
+    ticketRepository.findTicketById(ticketId),
+    userRepository.findUserById(userId),
+  ]);
+
   if (!ticket) {
     throw new Error("Ticket not found");
+  }
+
+  if (!user) {
+    throw new Error("User not found");
   }
 
   if (ticket.quantity < quantity) {
@@ -25,8 +34,16 @@ export const initializePayment = async (userId, { ticketId, quantity }) => {
     gross_amount: amount,
   };
 
+  const customerDetails = {
+    first_name: user.name.split(" ")[0],
+    last_name: user.name.split(" ").slice(1).join(" ") || "",
+    email: user.email,
+    phone: user.phoneNumber,
+  };
+
   const transactionToken = await snap.createTransaction({
     transaction_details: transactionDetails,
+    customer_details: customerDetails,
     item_details: [
       {
         id: ticketId,
@@ -53,46 +70,57 @@ export const initializePayment = async (userId, { ticketId, quantity }) => {
   };
 };
 
-export const handlePaymentNotification = async (notification) => {
+export const checkAndUpdatePaymentStatus = async (orderId) => {
   try {
-    const payment = await paymentRepository.findPaymentByOrderId(
-      notification.order_id
-    );
-    if (!payment) {
-      throw new Error("Payment not found");
-    }
-
+    const transactionStatus = await core.transaction.status(orderId);
     let paymentStatus;
-    if (notification.transaction_status === "capture") {
-      if (notification.fraud_status === "challenge") {
-        paymentStatus = "challenge";
-      } else if (notification.fraud_status === "accept") {
-        paymentStatus = "success";
-      }
-    } else if (notification.transaction_status === "settlement") {
+
+    if (transactionStatus.transaction_status === "capture") {
+      paymentStatus =
+        transactionStatus.fraud_status === "challenge"
+          ? "challenge"
+          : "success";
+    } else if (transactionStatus.transaction_status === "settlement") {
       paymentStatus = "success";
     } else if (
-      notification.transaction_status === "cancel" ||
-      notification.transaction_status === "deny" ||
-      notification.transaction_status === "expire"
+      ["cancel", "deny", "expire"].includes(
+        transactionStatus.transaction_status
+      )
     ) {
       paymentStatus = "failed";
-    } else if (notification.transaction_status === "pending") {
+    } else {
       paymentStatus = "pending";
     }
 
     const updatedPayment = await paymentRepository.updatePaymentStatus(
-      notification.order_id,
+      orderId,
       paymentStatus
     );
     return updatedPayment;
   } catch (error) {
-    console.error("Payment notification error:", error);
-    throw new Error("Failed to process payment notification: " + error.message);
+    console.error("Payment status check error:", error);
+    throw new Error("Failed to check payment status: " + error.message);
   }
 };
 
 export const getAllPayments = async (query) => {
+  const payments = await paymentRepository.findAllPayments(query);
+
+  await Promise.all(
+    payments.payments.map(async (payment) => {
+      if (payment.status === "pending") {
+        try {
+          await checkAndUpdatePaymentStatus(payment.orderId);
+        } catch (error) {
+          console.error(
+            `Failed to update payment status for order ${payment.orderId}:`,
+            error
+          );
+        }
+      }
+    })
+  );
+
   return paymentRepository.findAllPayments(query);
 };
 
@@ -101,9 +129,38 @@ export const getPaymentById = async (id, userId = null) => {
   if (!payment) {
     throw new Error("Payment not found");
   }
+
+  if (payment.status === "pending") {
+    try {
+      return await checkAndUpdatePaymentStatus(payment.orderId);
+    } catch (error) {
+      console.error("Failed to update payment status:", error);
+    }
+  }
+
   return payment;
 };
 
 export const getUserPaymentHistory = async (userId, query) => {
+  const payments = await paymentRepository.findAllPayments({
+    ...query,
+    userId,
+  });
+
+  await Promise.all(
+    payments.payments.map(async (payment) => {
+      if (payment.status === "pending") {
+        try {
+          await checkAndUpdatePaymentStatus(payment.orderId);
+        } catch (error) {
+          console.error(
+            `Failed to update payment status for order ${payment.orderId}:`,
+            error
+          );
+        }
+      }
+    })
+  );
+
   return paymentRepository.findAllPayments({ ...query, userId });
 };
