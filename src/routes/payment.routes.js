@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {
   initializePayment,
-  handleNotification,
   getAllPayments,
   getPaymentById,
   getUserPaymentHistory,
@@ -14,8 +13,6 @@ import {
 } from "../validators/payment.validator.js";
 
 const router = Router();
-
-router.post("/notification", handleNotification);
 
 router.use(authMiddleware);
 
