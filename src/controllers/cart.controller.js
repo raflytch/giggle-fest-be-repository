@@ -29,7 +29,7 @@ export const updateCartQuantity = async (req, res) => {
     const cartItem = await cartService.updateCartQuantity(
       req.user.id,
       Number(req.params.id),
-      req.body.quantity
+      Number(req.body.quantity)
     );
     return successResponse(res, cartItem, "Cart updated successfully");
   } catch (error) {

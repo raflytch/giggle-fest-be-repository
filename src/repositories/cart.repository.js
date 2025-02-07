@@ -19,11 +19,36 @@ export const findCartByUser = async (userId) => {
   });
 };
 
-export const findCartItem = async (userId, ticketId) => {
+export const findCartItemById = async (id, userId) => {
+  return prisma.cart.findFirst({
+    where: {
+      id,
+      userId,
+    },
+    include: {
+      ticket: {
+        include: {
+          event: true,
+          category: true,
+        },
+      },
+    },
+  });
+};
+
+export const findCartItemByTicket = async (userId, ticketId) => {
   return prisma.cart.findFirst({
     where: {
       userId,
       ticketId,
+    },
+    include: {
+      ticket: {
+        include: {
+          event: true,
+          category: true,
+        },
+      },
     },
   });
 };
@@ -42,9 +67,12 @@ export const createCartItem = async (data) => {
   });
 };
 
-export const updateCartItem = async (id, data) => {
+export const updateCartItem = async (id, userId, data) => {
   return prisma.cart.update({
-    where: { id },
+    where: {
+      id,
+      userId,
+    },
     data,
     include: {
       ticket: {
@@ -57,9 +85,12 @@ export const updateCartItem = async (id, data) => {
   });
 };
 
-export const deleteCartItem = async (id) => {
+export const deleteCartItem = async (id, userId) => {
   return prisma.cart.delete({
-    where: { id },
+    where: {
+      id,
+      userId,
+    },
   });
 };
 

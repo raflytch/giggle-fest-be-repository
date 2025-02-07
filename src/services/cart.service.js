@@ -11,14 +11,17 @@ export const addToCart = async (userId, { ticketId, quantity }) => {
     throw new Error("Not enough tickets available");
   }
 
-  const existingCartItem = await cartRepository.findCartItem(userId, ticketId);
+  const existingCartItem = await cartRepository.findCartItemByTicket(
+    userId,
+    ticketId
+  );
   if (existingCartItem) {
     const newQuantity = existingCartItem.quantity + quantity;
     if (ticket.quantity < newQuantity) {
       throw new Error("Not enough tickets available");
     }
 
-    return cartRepository.updateCartItem(existingCartItem.id, {
+    return cartRepository.updateCartItem(existingCartItem.id, userId, {
       quantity: newQuantity,
     });
   }
@@ -45,7 +48,7 @@ export const getCartByUser = async (userId) => {
 };
 
 export const updateCartQuantity = async (userId, cartId, quantity) => {
-  const cartItem = await cartRepository.findCartItem(userId, cartId);
+  const cartItem = await cartRepository.findCartItemById(cartId, userId);
   if (!cartItem) {
     throw new Error("Cart item not found");
   }
@@ -55,16 +58,16 @@ export const updateCartQuantity = async (userId, cartId, quantity) => {
     throw new Error("Not enough tickets available");
   }
 
-  return cartRepository.updateCartItem(cartId, { quantity });
+  return cartRepository.updateCartItem(cartId, userId, { quantity });
 };
 
 export const removeFromCart = async (userId, cartId) => {
-  const cartItem = await cartRepository.findCartItem(userId, cartId);
+  const cartItem = await cartRepository.findCartItemById(cartId, userId);
   if (!cartItem) {
     throw new Error("Cart item not found");
   }
 
-  return cartRepository.deleteCartItem(cartId);
+  return cartRepository.deleteCartItem(cartId, userId);
 };
 
 export const checkout = async (userId) => {
@@ -80,14 +83,6 @@ export const checkout = async (userId) => {
     }
   }
 
-  // Here we would:
-  // 1. Create payment record
-  // 2. Apply promo code if exists
-  // 3. Send notifications
-  // 4. Update ticket quantities
-  // 5. Clear cart
-
-  // For now, just prepare the checkout data
   const checkoutData = {
     userId,
     items: cart.items.map((item) => ({
