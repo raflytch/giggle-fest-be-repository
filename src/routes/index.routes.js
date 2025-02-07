@@ -7,6 +7,7 @@ import ticketRoutes from "./ticket.routes.js";
 import reviewRoutes from "./review.routes.js";
 import cartRoutes from "./cart.routes.js";
 import paymentRoutes from "./payment.routes.js";
+import promoRoutes from "./promo.routes.js";
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/tickets", ticketRoutes);
 router.use("/reviews", reviewRoutes);
 router.use("/cart", cartRoutes);
 router.use("/payments", paymentRoutes);
+router.use("/promos", promoRoutes);
 
 export default router;

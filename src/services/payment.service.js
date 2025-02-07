@@ -2,13 +2,17 @@ import { randomBytes } from "crypto";
 import * as paymentRepository from "../repositories/payment.repository.js";
 import * as ticketRepository from "../repositories/ticket.repository.js";
 import * as userRepository from "../repositories/user.repository.js";
+import * as promoRepository from "../repositories/promo.repository.js";
 import { snap, core } from "../libs/midtrans.config.js";
 
 export const generateOrderId = () => {
   return `ORDER-${randomBytes(5).toString("hex").toUpperCase()}`;
 };
 
-export const initializePayment = async (userId, { ticketId, quantity }) => {
+export const initializePayment = async (
+  userId,
+  { ticketId, quantity, promoCode }
+) => {
   const [ticket, user] = await Promise.all([
     ticketRepository.findTicketById(ticketId),
     userRepository.findUserById(userId),
@@ -26,12 +30,25 @@ export const initializePayment = async (userId, { ticketId, quantity }) => {
     throw new Error("Not enough tickets available");
   }
 
-  const amount = ticket.price * quantity;
+  const originalAmount = ticket.price * quantity;
+  let amount = originalAmount;
+  let discount = 0;
+  let promo = null;
+
+  if (promoCode) {
+    promo = await promoRepository.findPromoCodeByCode(promoCode);
+    if (!promo) {
+      throw new Error("Invalid promo code");
+    }
+    discount = Math.round((originalAmount * promo.discount) / 100);
+    amount = originalAmount - discount;
+  }
+
   const orderId = generateOrderId();
 
   const transactionDetails = {
     order_id: orderId,
-    gross_amount: amount,
+    gross_amount: Math.round(amount),
   };
 
   const customerDetails = {
@@ -41,24 +58,38 @@ export const initializePayment = async (userId, { ticketId, quantity }) => {
     phone: user.phoneNumber,
   };
 
+  const itemDetails = [];
+
+  itemDetails.push({
+    id: ticketId.toString(),
+    price: Math.round(ticket.price),
+    quantity: quantity,
+    name: ticket.name,
+    category: ticket.category.name,
+  });
+
+  if (discount > 0) {
+    itemDetails.push({
+      id: "DISCOUNT",
+      price: -Math.round(discount),
+      quantity: 1,
+      name: `Promo: ${promoCode}`,
+      category: "Discount",
+    });
+  }
+
   const transactionToken = await snap.createTransaction({
     transaction_details: transactionDetails,
     customer_details: customerDetails,
-    item_details: [
-      {
-        id: ticketId,
-        price: ticket.price,
-        quantity: quantity,
-        name: ticket.name,
-        category: ticket.category.name,
-      },
-    ],
+    item_details: itemDetails,
   });
 
   const payment = await paymentRepository.createPayment({
     ticketId,
     userId,
-    amount,
+    amount: Math.round(amount),
+    originalAmount: Math.round(originalAmount),
+    discount: Math.round(discount),
     status: "pending",
     orderId,
   });

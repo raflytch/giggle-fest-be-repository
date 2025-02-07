@@ -15,6 +15,7 @@ export const initializePaymentSchema = z.object({
     .refine((val) => val >= 1, {
       message: "Quantity must be at least 1",
     }),
+  promoCode: z.string().optional(),
 });
 
 export const getPaymentsQuerySchema = z.object({
