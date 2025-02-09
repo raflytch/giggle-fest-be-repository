@@ -9,31 +9,29 @@ const numberParser = (val) => {
 export const createPromoSchema = z.object({
   code: z.string().min(3).max(20),
   discount: z
-    .string()
-    .or(z.number())
-    .transform(numberParser)
+    .number()
+    .or(z.string().transform(Number))
     .refine((val) => val > 0 && val <= 100, {
       message: "Discount must be between 0 and 100",
     }),
-  validFrom: z.string(),
-  validTo: z.string(),
+  validFrom: z.string().datetime(),
+  validTo: z.string().datetime(),
 });
 
 export const updatePromoSchema = z.object({
   code: z.string().min(3).max(20).optional(),
   discount: z
-    .string()
-    .or(z.number())
-    .transform(numberParser)
+    .number()
+    .or(z.string().transform(Number))
     .refine((val) => val > 0 && val <= 100, {
       message: "Discount must be between 0 and 100",
     })
     .optional(),
-  validFrom: z.string().optional(),
-  validTo: z.string().optional(),
+  validFrom: z.string().datetime().optional(),
+  validTo: z.string().datetime().optional(),
 });
 
 export const getPromoQuerySchema = z.object({
-  page: z.string().optional(),
-  limit: z.string().optional(),
+  page: z.string().or(z.number()).transform(numberParser).optional(),
+  limit: z.string().or(z.number()).transform(numberParser).optional(),
 });
