@@ -46,6 +46,12 @@ export const findPromoCodeByCode = async (code) => {
   });
 };
 
+export const findPromoCodeById = async (id) => {
+  return prisma.promoCode.findUnique({
+    where: { id },
+  });
+};
+
 export const updatePromoCode = async (id, data) => {
   const updateData = {
     ...data,
