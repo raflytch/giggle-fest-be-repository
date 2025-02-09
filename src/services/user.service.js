@@ -4,7 +4,6 @@ import * as userRepository from "../repositories/user.repository.js";
 import { generateToken } from "../utils/token.js";
 import { sendVerificationEmail } from "../utils/email.service.js";
 
-// Register a new user
 export const register = async (userData) => {
   const existingUser = await userRepository.findUserByEmail(userData.email);
   if (existingUser) {
@@ -73,7 +72,6 @@ export const resendVerification = async (email) => {
   return { message: "Verification email sent successfully" };
 };
 
-// Login a user
 export const login = async (email, password) => {
   const user = await userRepository.findUserByEmail(email);
   if (!user) {
@@ -97,7 +95,6 @@ export const login = async (email, password) => {
   return { user: userWithoutPassword, token };
 };
 
-// Update a user
 export const updateUserById = async (id, data) => {
   const allowedFields = ["name", "age", "phoneNumber"];
   const invalidFields = Object.keys(data).filter(
@@ -120,15 +117,19 @@ export const updateUserById = async (id, data) => {
   return userRepository.updateUser(id, data);
 };
 
-// Delete a user
-export const deleteUserById = (id) => userRepository.deleteUser(id);
+export const deleteUserById = async (id) => {
+  try {
+    await userRepository.deleteUser(id);
+    return { message: "User deleted successfully" };
+  } catch (error) {
+    throw new Error("Failed to delete user: " + error.message);
+  }
+};
 
-// Get all users
 export const getAllUsers = async (queryParams) => {
   return userRepository.findAllUsers(queryParams);
 };
 
-// Get user by id
 export const getUserById = async (id) => {
   const user = await userRepository.findUserById(id);
   if (!user) {
