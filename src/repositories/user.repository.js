@@ -1,13 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-// Create a new user
 export const createUser = (data) => prisma.user.create({ data });
 
-// Create a new auth
 export const createAuth = (data) => prisma.auth.create({ data });
 
-// Find user by email
 export const findUserByEmail = (email) =>
   prisma.user.findUnique({
     where: { email },
@@ -26,7 +23,6 @@ export const findUserByEmail = (email) =>
     },
   });
 
-// Find user by id
 export const findUserById = (id) =>
   prisma.user.findUnique({
     where: { id },
@@ -44,14 +40,51 @@ export const findUserById = (id) =>
     },
   });
 
-// Update user
 export const updateUser = (id, data) =>
   prisma.user.update({ where: { id }, data });
 
-// Delete user
-export const deleteUser = (id) => prisma.user.delete({ where: { id } });
+export const deleteUser = async (id) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      authId: true,
+    },
+  });
 
-// Find all users
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return prisma.$transaction(async (tx) => {
+    await tx.notification.deleteMany({
+      where: { userId: user.id },
+    });
+
+    await tx.review.deleteMany({
+      where: { userId: user.id },
+    });
+
+    await tx.cart.deleteMany({
+      where: { userId: user.id },
+    });
+
+    await tx.payment.deleteMany({
+      where: { userId: user.id },
+    });
+
+    await tx.user.delete({
+      where: { id: user.id },
+    });
+
+    if (user.authId) {
+      await tx.auth.delete({
+        where: { id: user.authId },
+      });
+    }
+  });
+};
+
 export const findAllUsers = async ({ page = 1, limit = 10, search = "" }) => {
   const skip = (page - 1) * limit;
 
@@ -99,11 +132,9 @@ export const findAllUsers = async ({ page = 1, limit = 10, search = "" }) => {
   };
 };
 
-// Find user by verification token
 export const findUserByVerificationToken = (verificationToken) =>
   prisma.user.findUnique({ where: { verificationToken } });
 
-// Find user by reset token
 export const findUserByResetToken = (resetToken) =>
   prisma.user.findFirst({
     where: { resetToken },
