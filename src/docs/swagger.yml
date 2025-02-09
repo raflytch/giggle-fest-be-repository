@@ -1,0 +1,3835 @@
+openapi: 3.0.0
+info:
+  title: GiggleFest
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: User Auth
+  - name: Event
+  - name: Tickets
+  - name: Category
+  - name: Reviews
+  - name: Payment
+  - name: Cart
+  - name: Promo
+  - name: Notification
+paths:
+  /api/v1/auth/register:
+    post:
+      tags:
+        - User Auth
+      summary: CreateAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: raflyazizabdillah30@gmail.com
+                password: password
+                name: Rafly
+                role: admin
+                phoneNumber: "089684981540"
+                age: 20
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "287"
+            ETag:
+              schema:
+                type: string
+                example: W/"11f-GR831RMWudxtTK6njrbK9wo5VJI"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 18:37:47 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Admin created successfully
+                data:
+                  id: 5
+                  email: anjayyyy@gmail.com
+                  password: $2b$10$5BThCG/WMBju0ep7qQ79c.IQOkH6G7DNrZuLd.p0Z3yAXaSmUNGNK
+                  name: Rafly Aziz
+                  role: admin
+                  createdAt: "2025-02-03T18:37:47.393Z"
+                  updatedAt: "2025-02-03T18:37:47.393Z"
+  /api/v1/auth/resend-verification:
+    post:
+      tags:
+        - User Auth
+      summary: Resend Verification Email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: raflyazizabdillah30@gmail.com
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            RateLimit-Policy:
+              schema:
+                type: string
+                example: 3;w=3600
+            RateLimit-Limit:
+              schema:
+                type: integer
+                example: "3"
+            RateLimit-Remaining:
+              schema:
+                type: integer
+                example: "2"
+            RateLimit-Reset:
+              schema:
+                type: integer
+                example: "3600"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "129"
+            ETag:
+              schema:
+                type: string
+                example: W/"81-oQ6V35cOFoMhLypUhAECS20aFX8"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 01:28:09 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Verification email resent successfully
+                data:
+                  message: Verification email sent successfully
+  /api/v1/auth/forgot-password:
+    post:
+      tags:
+        - User Auth
+      summary: Send Otp Reset Password  1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: raflyazizabdillah30@gmail.com
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "309"
+            ETag:
+              schema:
+                type: string
+                example: W/"135-Y4YmiqLS/UUMYcywPTiuiOQo7s4"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 01:58:48 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: >-
+                  Password reset initiated. Please check your email for next
+                  steps.
+                data:
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsImlhdCI6MTczODcyMDcyOCwiZXhwIjoxNzM4NzI0MzI4fQ.QYrI2ZDRPwabGdY1q3eTGxxrY_I9sXTtZcVYjSTbZTk
+  /api/v1/auth/generate-otp:
+    post:
+      tags:
+        - User Auth
+      summary: Send Otp Reset Password  2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsImlhdCI6MTczODcyMDcyOCwiZXhwIjoxNzM4NzI0MzI4fQ.QYrI2ZDRPwabGdY1q3eTGxxrY_I9sXTtZcVYjSTbZTk
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "76"
+            ETag:
+              schema:
+                type: string
+                example: W/"4c-CG0LrTixIe7+xw01mJ235cLrWjk"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 01:59:07 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: OTP has been sent to your email
+                data: null
+  /api/v1/auth/verify-otp:
+    post:
+      tags:
+        - User Auth
+      summary: Send Otp Reset Password  3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsImlhdCI6MTczODcyMDcyOCwiZXhwIjoxNzM4NzI0MzI4fQ.QYrI2ZDRPwabGdY1q3eTGxxrY_I9sXTtZcVYjSTbZTk
+                otp: "287387"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "70"
+            ETag:
+              schema:
+                type: string
+                example: W/"46-NsXT2z9dcN+PIkB/yBVTtXdi3S0"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 02:01:10 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: OTP verified successfully
+                data: null
+  /api/v1/auth/reset-password:
+    post:
+      tags:
+        - User Auth
+      summary: Send Otp Reset Password  4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                token: >-
+                  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsImlhdCI6MTczODcyMDcyOCwiZXhwIjoxNzM4NzI0MzI4fQ.QYrI2ZDRPwabGdY1q3eTGxxrY_I9sXTtZcVYjSTbZTk
+                otp: "287387"
+                password: password123
+                confirmPassword: password123
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "81"
+            ETag:
+              schema:
+                type: string
+                example: W/"51-F6uFAbovTSj+Tqo/hTvkyzfzd3o"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 02:03:08 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Password has been reset successfully
+                data: null
+  /api/v1/auth/login:
+    post:
+      tags:
+        - User Auth
+      summary: Login User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: karinaghsn@gmail.com
+                password: password
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "522"
+            ETag:
+              schema:
+                type: string
+                example: W/"20a-qZ9YELaYg9JTSb22q7NlTH62HBo"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 17:32:12 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: User logged in successfully
+                data:
+                  user:
+                    id: 2
+                    email: raflyazizabdillah30@gmail.com
+                    password: >-
+                      $2b$10$E0kHD2JItNiTr6ckN2Kx/.Vxip6QAwYIht4ZLc7nd8WS7TOvZBlWu
+                    name: Rafly
+                    role: user
+                    createdAt: "2025-02-03T17:31:55.934Z"
+                    updatedAt: "2025-02-03T17:31:55.934Z"
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM4NjAzOTMyLCJleHAiOjE3Mzg2NDcxMzJ9.pNUzNVJZjqIpjuc9q0HD54LdgsKbvrb7nPM4wMEkaxY
+        "400":
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "46"
+            ETag:
+              schema:
+                type: string
+                example: W/"2e-xEo6895dGzLn+3vaDWGSNpuCirE"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 18:40:27 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: false
+                message: Invalid password
+  /api/v1/users/1:
+    get:
+      tags:
+        - User Auth
+      summary: Get User By Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "293"
+            ETag:
+              schema:
+                type: string
+                example: W/"125-w0d7FjxW+s7oqejVC3hq9gJGAhE"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 12:07:07 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: User retrieved successfully
+                data:
+                  id: 1
+                  email: raflyazizabdillah30@gmail.com
+                  password: $2b$10$kL.f1uvvGOktLqlsv/xcLeTo1ZOFn4pu17MyEjLilGfGqD7HX3kkS
+                  name: Rafly Aziz Abdillah
+                  createdAt: "2025-02-03T11:47:28.979Z"
+                  updatedAt: "2025-02-03T11:47:28.979Z"
+        "404":
+          description: Not Found
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "44"
+            ETag:
+              schema:
+                type: string
+                example: W/"2c-EAnCIFy1uGovyo/FU6KYwnjLgrc"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 12:07:38 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: false
+                message: User not found
+    patch:
+      tags:
+        - User Auth
+      summary: Update User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Raja Hutan
+                age: 25
+                phoneNumber: "1234567890"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "291"
+            ETag:
+              schema:
+                type: string
+                example: W/"123-VeIJErRcYyRVXl+utW9WwNpHQLc"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 02:31:41 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: User updated successfully
+                data:
+                  id: 1
+                  email: raflyazizabdillah30@gmail.com
+                  name: Raja Hutan
+                  age: 25
+                  phoneNumber: "1234567890"
+                  role: user
+                  isVerified: true
+                  createdAt: "2025-02-05T01:48:18.435Z"
+                  updatedAt: "2025-02-05T02:31:41.714Z"
+                  authId: 1
+        "400":
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "72"
+            ETag:
+              schema:
+                type: string
+                example: W/"48-3mAc9HWPpzAi1WWaYdciNTE1lUU"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 02:32:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: error
+                message: "Unrecognized key(s) in object: 'password'"
+    delete:
+      tags:
+        - User Auth
+      summary: Delete User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "70"
+            ETag:
+              schema:
+                type: string
+                example: W/"46-EUWhfFr3Y6cNAGlY8jN39dUKHVY"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 18:13:20 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: User deleted successfully
+                data: null
+        "401":
+          description: Unauthorized
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "52"
+            ETag:
+              schema:
+                type: string
+                example: W/"34-m6/pMeiB05tYNKpGSZbm7qJmEq4"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 19:16:05 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: false
+                message: Access token not found
+  /api/v1/users:
+    get:
+      tags:
+        - User Auth
+      summary: Get All User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "359"
+            ETag:
+              schema:
+                type: string
+                example: W/"167-2id5Oa2/TG3KiDq01w/BvlY0Bdk"
+            Date:
+              schema:
+                type: string
+                example: Mon, 03 Feb 2025 12:37:53 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                message: Users retrieved successfully
+                data:
+                  users:
+                    - id: 1
+                      email: raflyazizabdillah30@gmail.com
+                      password: >-
+                        $2b$10$kL.f1uvvGOktLqlsv/xcLeTo1ZOFn4pu17MyEjLilGfGqD7HX3kkS
+                      name: Rafly Aziz Abdillah
+                      createdAt: "2025-02-03T11:47:28.979Z"
+                      updatedAt: "2025-02-03T11:47:28.979Z"
+                  meta:
+                    page: 1
+                    limit: 5
+                    total: 1
+                    totalUsers: 1
+  /api/v1/events:
+    post:
+      tags:
+        - Event
+      summary: Create Event
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Summer Festival 2024
+                description:
+                  type: string
+                  example: Annual summer music festival
+                date:
+                  type: string
+                  example: "2024-07-15"
+                location:
+                  type: string
+                  example: Central Park
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "411"
+            ETag:
+              schema:
+                type: string
+                example: W/"19b-LsUtdMVFmUvjJ5tCLc9sfBgIMX0"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 13:00:28 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Event created successfully
+                data:
+                  id: 1
+                  name: Summer Festival 2024
+                  description: Annual summer music festival
+                  date: "2024-07-15T00:00:00.000Z"
+                  location: Central Park
+                  imageUrl: >-
+                    https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_Bf-qt3icIQ.jpg
+                  createdAt: "2025-02-05T13:00:28.760Z"
+                  updatedAt: "2025-02-05T13:00:28.760Z"
+    get:
+      tags:
+        - Event
+      summary: Get All Events
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "5"
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: festival
+        - name: startDate
+          in: query
+          schema:
+            type: string
+          example: "2024-01-01"
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "471"
+            ETag:
+              schema:
+                type: string
+                example: W/"1d7-No9zr5Pmtl/y3z7hhE5U/IUyCKQ"
+            Date:
+              schema:
+                type: string
+                example: Wed, 05 Feb 2025 13:07:34 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  events:
+                    - id: 1
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_Bf-qt3icIQ.jpg
+                      createdAt: "2025-02-05T13:00:28.760Z"
+                      updatedAt: "2025-02-05T13:00:28.760Z"
+                      tickets: []
+                  meta:
+                    page: 1
+                    limit: 5
+                    total: 1
+                    totalPages: 1
+  /api/v1/events/1:
+    patch:
+      tags:
+        - Event
+      summary: Update Events
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Summer Festival 2025
+                description:
+                  type: string
+                  example: Annual summer music festival
+                date:
+                  type: string
+                  example: "2025-07-15"
+                location:
+                  type: string
+                  example: Central Park
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "361"
+            ETag:
+              schema:
+                type: string
+                example: W/"169-d47M+vYel9DQM+rbT0fKj4g2pQc"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 16:24:00 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Event updated successfully
+                data:
+                  id: 1
+                  name: Summer Festival 2025
+                  description: Annual summer music festival
+                  date: "2025-07-15T00:00:00.000Z"
+                  location: Central Park
+                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_lD2Tgkoxf.webp
+                  createdAt: "2025-02-06T16:19:35.627Z"
+                  updatedAt: "2025-02-06T16:24:00.958Z"
+    delete:
+      tags:
+        - Event
+      summary: Update Events Copy
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "71"
+            ETag:
+              schema:
+                type: string
+                example: W/"47-WZ0LlDI1JYBNr9+rcyVNutkCBvU"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 16:25:12 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Event deleted successfully
+                data: null
+    get:
+      tags:
+        - Event
+      summary: Get Event By Id
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "404"
+            ETag:
+              schema:
+                type: string
+                example: W/"194-P8U+EkyPWIM7thCqLQ7gAu12mY4"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 16:21:30 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 1
+                  name: Summer Festival 2024
+                  description: Annual summer music festival
+                  date: "2024-07-15T00:00:00.000Z"
+                  location: Central Park
+                  imageUrl: >-
+                    https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_TGJXfdxzF.jpg
+                  createdAt: "2025-02-06T16:19:35.627Z"
+                  updatedAt: "2025-02-06T16:19:35.627Z"
+                  tickets: []
+  /api/v1/tickets:
+    post:
+      tags:
+        - Tickets
+      summary: Create Ticket
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Concert Ticket VIP
+                price:
+                  type: integer
+                  example: "1000000"
+                quantity:
+                  type: integer
+                  example: "100"
+                eventId:
+                  type: integer
+                  example: "3"
+                categoryId:
+                  type: integer
+                  example: "1"
+                artist:
+                  type: string
+                  example: Taylor Swift
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "712"
+            ETag:
+              schema:
+                type: string
+                example: W/"2c8-Ri952d4+D8pjwtpSx5yg58dZYHE"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:35:53 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Ticket created successfully
+                data:
+                  id: 7
+                  name: Concert Ticket VIP
+                  price: 1000000
+                  quantity: 100
+                  userId: 1
+                  eventId: 3
+                  categoryId: 1
+                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                  artist: Taylor Swift
+                  createdAt: "2025-02-06T17:35:53.548Z"
+                  updatedAt: "2025-02-06T17:35:53.548Z"
+                  event:
+                    id: 3
+                    name: Summer Festival 2024
+                    description: Annual summer music festival
+                    date: "2024-07-15T00:00:00.000Z"
+                    location: Central Park
+                    imageUrl: null
+                    createdAt: "2025-02-06T17:22:12.203Z"
+                    updatedAt: "2025-02-06T17:22:12.203Z"
+                  category:
+                    id: 1
+                    name: Vip Mantap
+                    createdAt: "2025-02-06T17:03:25.023Z"
+                    updatedAt: "2025-02-06T17:09:42.908Z"
+    get:
+      tags:
+        - Tickets
+      summary: Get All Ticket
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "10"
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: vip
+        - name: minPrice
+          in: query
+          schema:
+            type: integer
+          example: "500000"
+        - name: maxPrice
+          in: query
+          schema:
+            type: integer
+          example: "2000000"
+        - name: artist
+          in: query
+          schema:
+            type: string
+          example: taylor
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "1462"
+            ETag:
+              schema:
+                type: string
+                example: W/"5b6-2z4b2D/9NGdV1yaGvtWT5q+WBa4"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:38:58 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  tickets:
+                    - id: 7
+                      name: Concert Ticket VIP
+                      price: 1000000
+                      quantity: 100
+                      userId: 1
+                      eventId: 3
+                      categoryId: 1
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                      artist: Taylor Swift
+                      createdAt: "2025-02-06T17:35:53.548Z"
+                      updatedAt: "2025-02-06T17:35:53.548Z"
+                      event:
+                        id: 3
+                        name: Summer Festival 2024
+                        description: Annual summer music festival
+                        date: "2024-07-15T00:00:00.000Z"
+                        location: Central Park
+                        imageUrl: null
+                        createdAt: "2025-02-06T17:22:12.203Z"
+                        updatedAt: "2025-02-06T17:22:12.203Z"
+                      category:
+                        id: 1
+                        name: Vip Mantap
+                        createdAt: "2025-02-06T17:03:25.023Z"
+                        updatedAt: "2025-02-06T17:09:42.908Z"
+                    - id: 6
+                      name: Concert Ticket VIP
+                      price: 1000000
+                      quantity: 100
+                      userId: 1
+                      eventId: 4
+                      categoryId: 1
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
+                      artist: Taylor Swift
+                      createdAt: "2025-02-06T17:33:50.615Z"
+                      updatedAt: "2025-02-06T17:33:50.615Z"
+                      event:
+                        id: 4
+                        name: Summer Festival 2024
+                        description: Annual summer music festival
+                        date: "2024-07-15T00:00:00.000Z"
+                        location: Central Park
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
+                        createdAt: "2025-02-06T17:22:29.028Z"
+                        updatedAt: "2025-02-06T17:22:29.028Z"
+                      category:
+                        id: 1
+                        name: Vip Mantap
+                        createdAt: "2025-02-06T17:03:25.023Z"
+                        updatedAt: "2025-02-06T17:09:42.908Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 2
+                    totalPages: 1
+  /api/v1/tickets/7:
+    patch:
+      tags:
+        - Tickets
+      summary: Update Ticket
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Concert Ticket VIP
+                price:
+                  type: integer
+                  example: "1000000"
+                quantity:
+                  type: integer
+                  example: "100"
+                eventId:
+                  type: integer
+                  example: "3"
+                categoryId:
+                  type: integer
+                  example: "1"
+                artist:
+                  type: string
+                  example: Ariel Noah
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "710"
+            ETag:
+              schema:
+                type: string
+                example: W/"2c6-UUt06tN9hZJdxah0o18p2IRPPKQ"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:43:27 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Ticket updated successfully
+                data:
+                  id: 7
+                  name: Concert Ticket VIP
+                  price: 1000000
+                  quantity: 100
+                  userId: 1
+                  eventId: 3
+                  categoryId: 1
+                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                  artist: Ariel Noah
+                  createdAt: "2025-02-06T17:35:53.548Z"
+                  updatedAt: "2025-02-06T17:43:27.965Z"
+                  event:
+                    id: 3
+                    name: Summer Festival 2024
+                    description: Annual summer music festival
+                    date: "2024-07-15T00:00:00.000Z"
+                    location: Central Park
+                    imageUrl: null
+                    createdAt: "2025-02-06T17:22:12.203Z"
+                    updatedAt: "2025-02-06T17:22:12.203Z"
+                  category:
+                    id: 1
+                    name: Vip Mantap
+                    createdAt: "2025-02-06T17:03:25.023Z"
+                    updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/tickets/6:
+    get:
+      tags:
+        - Tickets
+      summary: Get Ticket By  Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "749"
+            ETag:
+              schema:
+                type: string
+                example: W/"2ed-25A9ckJ2OX+GchrAItHYBKDgd5A"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:40:55 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 6
+                  name: Concert Ticket VIP
+                  price: 1000000
+                  quantity: 100
+                  userId: 1
+                  eventId: 4
+                  categoryId: 1
+                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
+                  artist: Taylor Swift
+                  createdAt: "2025-02-06T17:33:50.615Z"
+                  updatedAt: "2025-02-06T17:33:50.615Z"
+                  event:
+                    id: 4
+                    name: Summer Festival 2024
+                    description: Annual summer music festival
+                    date: "2024-07-15T00:00:00.000Z"
+                    location: Central Park
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
+                    createdAt: "2025-02-06T17:22:29.028Z"
+                    updatedAt: "2025-02-06T17:22:29.028Z"
+                  category:
+                    id: 1
+                    name: Vip Mantap
+                    createdAt: "2025-02-06T17:03:25.023Z"
+                    updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/tickets/category/1:
+    get:
+      tags:
+        - Tickets
+      summary: Get Ticket By Category Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "1394"
+            ETag:
+              schema:
+                type: string
+                example: W/"572-TvC9Piafk7SGooYQHLOOxlMW9AI"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:44:29 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  - id: 7
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 3
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                    artist: Ariel Noah
+                    createdAt: "2025-02-06T17:35:53.548Z"
+                    updatedAt: "2025-02-06T17:43:27.965Z"
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+                  - id: 6
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 4
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
+                    artist: Taylor Swift
+                    createdAt: "2025-02-06T17:33:50.615Z"
+                    updatedAt: "2025-02-06T17:33:50.615Z"
+                    event:
+                      id: 4
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
+                      createdAt: "2025-02-06T17:22:29.028Z"
+                      updatedAt: "2025-02-06T17:22:29.028Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/tickets/event/4:
+    get:
+      tags:
+        - Tickets
+      summary: Get Ticket By Event Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "751"
+            ETag:
+              schema:
+                type: string
+                example: W/"2ef-nIojBOW0vfN5s3l2XCmgoepAcn8"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:45:47 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  - id: 6
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 4
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
+                    artist: Taylor Swift
+                    createdAt: "2025-02-06T17:33:50.615Z"
+                    updatedAt: "2025-02-06T17:33:50.615Z"
+                    event:
+                      id: 4
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
+                      createdAt: "2025-02-06T17:22:29.028Z"
+                      updatedAt: "2025-02-06T17:22:29.028Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/categories:
+    post:
+      tags:
+        - Category
+      summary: Create Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Business
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "174"
+            ETag:
+              schema:
+                type: string
+                example: W/"ae-c4LC5IsJmSZ0OfSbSBfnKIBDamE"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:06:02 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Category created successfully
+                data:
+                  id: 4
+                  name: Business
+                  createdAt: "2025-02-06T17:06:02.891Z"
+                  updatedAt: "2025-02-06T17:06:02.891Z"
+    get:
+      tags:
+        - Category
+      summary: Get All Category
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "10"
+        - name: search
+          in: query
+          schema:
+            type: string
+          example: Vip
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "218"
+            ETag:
+              schema:
+                type: string
+                example: W/"da-sFWzHzznsUi67NuVXoAIFILLA9w"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:07:29 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  categories:
+                    - id: 1
+                      name: VIP
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:03:25.023Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/categories/1:
+    get:
+      tags:
+        - Category
+      summary: Get Category By Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "147"
+            ETag:
+              schema:
+                type: string
+                example: W/"93-gtkZ33LAi91sGFxNbpVlZldUSYc"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:08:31 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 1
+                  name: VIP
+                  createdAt: "2025-02-06T17:03:25.023Z"
+                  updatedAt: "2025-02-06T17:03:25.023Z"
+    patch:
+      tags:
+        - Category
+      summary: Update Category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Vip Mantap
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "176"
+            ETag:
+              schema:
+                type: string
+                example: W/"b0-AQL6olck08771x8DkXKtPOm8ybk"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:09:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Category updated successfully
+                data:
+                  id: 1
+                  name: Vip Mantap
+                  createdAt: "2025-02-06T17:03:25.023Z"
+                  updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/categories/4:
+    delete:
+      tags:
+        - Category
+      summary: Delete Category
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "74"
+            ETag:
+              schema:
+                type: string
+                example: W/"4a-wS9TI/X7mH/B3kxERE8AiBHL4Cs"
+            Date:
+              schema:
+                type: string
+                example: Thu, 06 Feb 2025 17:10:43 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Category deleted successfully
+                data: null
+  /api/v1/reviews:
+    post:
+      tags:
+        - Reviews
+      summary: Create Reviews
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                rating: 4
+                comment: Great experience with this ticket!
+                ticketId: 6
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "676"
+            ETag:
+              schema:
+                type: string
+                example: W/"2a4-YaJvSRQvnZlTcvBQzuTd5/0mxk4"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 17:58:43 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Review created successfully
+                data:
+                  id: 3
+                  rating: 5
+                  comment: Great experience with this ticket!
+                  userId: 2
+                  ticketId: 7
+                  createdAt: "2025-02-07T17:58:43.678Z"
+                  updatedAt: "2025-02-07T17:58:43.678Z"
+                  user:
+                    id: 2
+                    name: Ryan
+                  ticket:
+                    id: 7
+                    name: Concert Ticket VIP
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+        "400":
+          description: Bad Request
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "68"
+            ETag:
+              schema:
+                type: string
+                example: W/"44-z1oAR/8OJp0Ducz0poC2KjBTseM"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:08:39 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: error
+                message: You have already reviewed this ticket
+    get:
+      tags:
+        - Notification
+      summary: Get All Notifications
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "10"
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "482"
+            ETag:
+              schema:
+                type: string
+                example: W/"1e2-R6r/CqoyKnmqYjHIbAnup1ZuUN0"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:46:06 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  notifications:
+                    - id: 4
+                      message: New promotion available!
+                      isRead: false
+                      userId: 2
+                      createdAt: "2025-02-09T17:44:53.678Z"
+                      updatedAt: "2025-02-09T17:44:53.678Z"
+                    - id: 2
+                      message: >-
+                        New promo code FEBRUARYSIGMA2025 is available! Get 20%
+                        discount. Valid until 1/3/2025
+                      isRead: false
+                      userId: 2
+                      createdAt: "2025-02-09T17:41:40.164Z"
+                      updatedAt: "2025-02-09T17:41:40.164Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 2
+                    totalPages: 1
+  /api/v1/reviews/3:
+    get:
+      tags:
+        - Reviews
+      summary: Get Reviews By Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "656"
+            ETag:
+              schema:
+                type: string
+                example: W/"290-VV47cEWB6RmZcbJGWqJ2QJBss2g"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:01:33 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 3
+                  rating: 5
+                  comment: Great experience with this ticket!
+                  userId: 2
+                  ticketId: 7
+                  createdAt: "2025-02-07T17:58:43.678Z"
+                  updatedAt: "2025-02-07T17:58:43.678Z"
+                  user:
+                    id: 2
+                    name: Ryan
+                  ticket:
+                    id: 7
+                    name: Concert Ticket VIP
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+    patch:
+      tags:
+        - Reviews
+      summary: Update Review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                rating: 4
+                comment: Updated review comment
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "664"
+            ETag:
+              schema:
+                type: string
+                example: W/"298-EZln5hPS40hgTGS3e4OxiohnilY"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:07:11 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Review updated successfully
+                data:
+                  id: 3
+                  rating: 4
+                  comment: Updated review comment
+                  userId: 2
+                  ticketId: 7
+                  createdAt: "2025-02-07T17:58:43.678Z"
+                  updatedAt: "2025-02-07T18:07:11.704Z"
+                  user:
+                    id: 2
+                    name: Ryan
+                  ticket:
+                    id: 7
+                    name: Concert Ticket VIP
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+    delete:
+      tags:
+        - Cart
+      summary: Delete Cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "80"
+            ETag:
+              schema:
+                type: string
+                example: W/"50-ZfjfbnEdbNqwmaNN3AZmK6iMTMQ"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:44:37 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Item removed from cart successfully
+                data: null
+  /api/v1/reviews/ticket/7:
+    get:
+      tags:
+        - Reviews
+      summary: Get Reviews By Ticket Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "724"
+            ETag:
+              schema:
+                type: string
+                example: W/"2d4-b7EzuVyCc7N9v+D9LlC2TcIjgUE"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:03:33 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  reviews:
+                    - id: 3
+                      rating: 5
+                      comment: Great experience with this ticket!
+                      userId: 2
+                      ticketId: 7
+                      createdAt: "2025-02-07T17:58:43.678Z"
+                      updatedAt: "2025-02-07T17:58:43.678Z"
+                      user:
+                        id: 2
+                        name: Ryan
+                      ticket:
+                        id: 7
+                        name: Concert Ticket VIP
+                        event:
+                          id: 3
+                          name: Summer Festival 2024
+                          description: Annual summer music festival
+                          date: "2024-07-15T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: null
+                          createdAt: "2025-02-06T17:22:12.203Z"
+                          updatedAt: "2025-02-06T17:22:12.203Z"
+                        category:
+                          id: 1
+                          name: Vip Mantap
+                          createdAt: "2025-02-06T17:03:25.023Z"
+                          updatedAt: "2025-02-06T17:09:42.908Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/reviews/user/2:
+    get:
+      tags:
+        - Reviews
+      summary: Get Reviews By User Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "694"
+            ETag:
+              schema:
+                type: string
+                example: W/"2b6-YYaorhdXQn04LHafyAQB0oZY/zk"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:05:21 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  reviews:
+                    - id: 3
+                      rating: 5
+                      comment: Great experience with this ticket!
+                      userId: 2
+                      ticketId: 7
+                      createdAt: "2025-02-07T17:58:43.678Z"
+                      updatedAt: "2025-02-07T17:58:43.678Z"
+                      ticket:
+                        id: 7
+                        name: Concert Ticket VIP
+                        event:
+                          id: 3
+                          name: Summer Festival 2024
+                          description: Annual summer music festival
+                          date: "2024-07-15T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: null
+                          createdAt: "2025-02-06T17:22:12.203Z"
+                          updatedAt: "2025-02-06T17:22:12.203Z"
+                        category:
+                          id: 1
+                          name: Vip Mantap
+                          createdAt: "2025-02-06T17:03:25.023Z"
+                          updatedAt: "2025-02-06T17:09:42.908Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/payments/initialize:
+    post:
+      tags:
+        - Payment
+      summary: Create Payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                ticketId: 1
+                quantity: 2
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "1166"
+            ETag:
+              schema:
+                type: string
+                example: W/"48e-7DSD07IeRk1qy6EhnkpFY3jWy6Q"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 19:52:17 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Payment initialized successfully
+                data:
+                  payment:
+                    id: 1
+                    orderId: ORDER-6115824D76
+                    userId: 1
+                    ticketId: 1
+                    amount: 2000000
+                    status: pending
+                    paymentDate: "2025-02-07T19:52:17.744Z"
+                    user:
+                      id: 1
+                      name: Ryan
+                      email: raflyazizabdillah30@gmail.com
+                    ticket:
+                      id: 1
+                      name: Concert Ticket VIP
+                      price: 1000000
+                      quantity: 100
+                      userId: 1
+                      eventId: 1
+                      categoryId: 1
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_1ZOGNjSoV.webp
+                      artist: Taylor Swift
+                      createdAt: "2025-02-07T19:47:28.418Z"
+                      updatedAt: "2025-02-07T19:47:28.418Z"
+                      event:
+                        id: 1
+                        name: Summer Festival 2024
+                        description: Annual summer music festival
+                        date: "2024-07-15T00:00:00.000Z"
+                        location: Central Park
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/loginbanner_YsmRlU-xJ.webp
+                        createdAt: "2025-02-07T19:46:28.976Z"
+                        updatedAt: "2025-02-07T19:46:28.976Z"
+                      category:
+                        id: 1
+                        name: Business
+                        createdAt: "2025-02-07T19:47:18.407Z"
+                        updatedAt: "2025-02-07T19:47:18.407Z"
+                  transactionToken: 829b52ac-7fb4-4d6d-92f8-9366e18832fe
+                  redirectUrl: >-
+                    https://app.sandbox.midtrans.com/snap/v4/redirection/829b52ac-7fb4-4d6d-92f8-9366e18832fe
+  /api/v1/payments/history:
+    get:
+      tags:
+        - Payment
+      summary: Get All Payment History
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "1034"
+            ETag:
+              schema:
+                type: string
+                example: W/"40a-69IzHUm3KluU/YP1Nom1q5CxkrQ"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 19:56:33 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  payments:
+                    - id: 1
+                      orderId: ORDER-6115824D76
+                      userId: 1
+                      ticketId: 1
+                      amount: 2000000
+                      status: success
+                      paymentDate: "2025-02-07T19:52:17.744Z"
+                      user:
+                        id: 1
+                        name: Ryan
+                        email: raflyazizabdillah30@gmail.com
+                      ticket:
+                        id: 1
+                        name: Concert Ticket VIP
+                        price: 1000000
+                        quantity: 100
+                        userId: 1
+                        eventId: 1
+                        categoryId: 1
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_1ZOGNjSoV.webp
+                        artist: Taylor Swift
+                        createdAt: "2025-02-07T19:47:28.418Z"
+                        updatedAt: "2025-02-07T19:47:28.418Z"
+                        event:
+                          id: 1
+                          name: Summer Festival 2024
+                          description: Annual summer music festival
+                          date: "2024-07-15T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/loginbanner_YsmRlU-xJ.webp
+                          createdAt: "2025-02-07T19:46:28.976Z"
+                          updatedAt: "2025-02-07T19:46:28.976Z"
+                        category:
+                          id: 1
+                          name: Business
+                          createdAt: "2025-02-07T19:47:18.407Z"
+                          updatedAt: "2025-02-07T19:47:18.407Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/payments/1:
+    get:
+      tags:
+        - Payment
+      summary: Get Payment By Id
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "965"
+            ETag:
+              schema:
+                type: string
+                example: W/"3c5-gsJ5VcnjLtWFVNDP9zR/+N81PtM"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 19:59:12 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 1
+                  orderId: ORDER-6115824D76
+                  userId: 1
+                  ticketId: 1
+                  amount: 2000000
+                  status: success
+                  paymentDate: "2025-02-07T19:52:17.744Z"
+                  user:
+                    id: 1
+                    name: Ryan
+                    email: raflyazizabdillah30@gmail.com
+                  ticket:
+                    id: 1
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 1
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_1ZOGNjSoV.webp
+                    artist: Taylor Swift
+                    createdAt: "2025-02-07T19:47:28.418Z"
+                    updatedAt: "2025-02-07T19:47:28.418Z"
+                    event:
+                      id: 1
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/loginbanner_YsmRlU-xJ.webp
+                      createdAt: "2025-02-07T19:46:28.976Z"
+                      updatedAt: "2025-02-07T19:46:28.976Z"
+                    category:
+                      id: 1
+                      name: Business
+                      createdAt: "2025-02-07T19:47:18.407Z"
+                      updatedAt: "2025-02-07T19:47:18.407Z"
+        "403":
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "43"
+            ETag:
+              schema:
+                type: string
+                example: W/"2b-Rih9aWYMb4GwzEPSZO5wMUAD4eU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 21:02:32 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: error
+                message: Unauthorized
+  /api/v1/payments:
+    get:
+      tags:
+        - Payment
+      summary: Get All Payment (admin)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "1034"
+            ETag:
+              schema:
+                type: string
+                example: W/"40a-69IzHUm3KluU/YP1Nom1q5CxkrQ"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 20:02:25 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  payments:
+                    - id: 1
+                      orderId: ORDER-6115824D76
+                      userId: 1
+                      ticketId: 1
+                      amount: 2000000
+                      status: success
+                      paymentDate: "2025-02-07T19:52:17.744Z"
+                      user:
+                        id: 1
+                        name: Ryan
+                        email: raflyazizabdillah30@gmail.com
+                      ticket:
+                        id: 1
+                        name: Concert Ticket VIP
+                        price: 1000000
+                        quantity: 100
+                        userId: 1
+                        eventId: 1
+                        categoryId: 1
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_1ZOGNjSoV.webp
+                        artist: Taylor Swift
+                        createdAt: "2025-02-07T19:47:28.418Z"
+                        updatedAt: "2025-02-07T19:47:28.418Z"
+                        event:
+                          id: 1
+                          name: Summer Festival 2024
+                          description: Annual summer music festival
+                          date: "2024-07-15T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/loginbanner_YsmRlU-xJ.webp
+                          createdAt: "2025-02-07T19:46:28.976Z"
+                          updatedAt: "2025-02-07T19:46:28.976Z"
+                        category:
+                          id: 1
+                          name: Business
+                          createdAt: "2025-02-07T19:47:18.407Z"
+                          updatedAt: "2025-02-07T19:47:18.407Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+        "403":
+          description: Forbidden
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "43"
+            ETag:
+              schema:
+                type: string
+                example: W/"2b-Rih9aWYMb4GwzEPSZO5wMUAD4eU"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 21:02:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: error
+                message: Unauthorized
+  /api/v1/cart:
+    post:
+      tags:
+        - Promo
+      summary: Create Promo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                ticketId: 6
+                quantity: 2
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "275"
+            ETag:
+              schema:
+                type: string
+                example: W/"113-o++4hIyCX5U8p7yl+WDbyHnZQD8"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:56:05 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Promo code created successfully
+                data:
+                  id: 6
+                  code: FEBRUARICERIA2025
+                  discount: 20
+                  validFrom: "2025-02-01T00:00:00.000Z"
+                  validTo: "2025-02-20T23:59:59.000Z"
+                  createdAt: "2025-02-09T17:56:05.716Z"
+                  updatedAt: "2025-02-09T17:56:05.716Z"
+  /api/v1/cart/2:
+    patch:
+      tags:
+        - Cart
+      summary: Update Cart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                quantity: 65
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "842"
+            ETag:
+              schema:
+                type: string
+                example: W/"34a-tx6hDXQA4UAv76Jme21DIpPWij4"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:45:51 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Cart updated successfully
+                data:
+                  id: 2
+                  userId: 2
+                  ticketId: 7
+                  quantity: 65
+                  createdAt: "2025-02-07T18:35:19.940Z"
+                  updatedAt: "2025-02-07T18:45:51.050Z"
+                  ticket:
+                    id: 7
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 3
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                    artist: Ariel Noah
+                    createdAt: "2025-02-06T17:35:53.548Z"
+                    updatedAt: "2025-02-06T17:43:27.965Z"
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/promos:
+    get:
+      tags:
+        - Promo
+      summary: Get All Promo
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "10"
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "915"
+            ETag:
+              schema:
+                type: string
+                example: W/"393-srA3Fqvkk59I0kdR8N4mmTpvczM"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:42:11 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  promoCodes:
+                    - id: 5
+                      code: FEBRUARYSIGMA2025
+                      discount: 20
+                      validFrom: "2025-02-01T00:00:00.000Z"
+                      validTo: "2025-02-28T23:59:59.000Z"
+                      createdAt: "2025-02-09T17:41:39.905Z"
+                      updatedAt: "2025-02-09T17:41:39.905Z"
+                    - id: 4
+                      code: FEBRUARY2025
+                      discount: 25
+                      validFrom: "2025-02-01T00:00:00.000Z"
+                      validTo: "2025-02-28T23:59:59.000Z"
+                      createdAt: "2025-02-07T22:18:19.042Z"
+                      updatedAt: "2025-02-07T22:18:19.042Z"
+                    - id: 3
+                      code: SUMMERFEST
+                      discount: 20
+                      validFrom: "2025-09-02T00:00:00.000Z"
+                      validTo: "2025-08-31T23:59:59.000Z"
+                      createdAt: "2025-02-07T21:47:28.819Z"
+                      updatedAt: "2025-02-07T21:47:28.819Z"
+                    - id: 2
+                      code: SUMMER2025
+                      discount: 25
+                      validFrom: "2025-05-02T00:00:00.000Z"
+                      validTo: "2025-09-30T23:59:59.000Z"
+                      createdAt: "2025-02-07T21:44:28.632Z"
+                      updatedAt: "2025-02-07T22:04:43.455Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 4
+                    totalPages: 1
+  /api/v1/promos/validate/SUMMERFEST:
+    get:
+      tags:
+        - Promo
+      summary: Get Validate Promo
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "251"
+            ETag:
+              schema:
+                type: string
+                example: W/"fb-hm74CIaLQI1Kqyo0IJ2CZ67tSfE"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:42:54 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 5
+                  code: FEBRUARYSIGMA2025
+                  discount: 20
+                  validFrom: "2025-02-01T00:00:00.000Z"
+                  validTo: "2025-02-28T23:59:59.000Z"
+                  createdAt: "2025-02-09T17:41:39.905Z"
+                  updatedAt: "2025-02-09T17:41:39.905Z"
+  /api/v1/promos/2:
+    patch:
+      tags:
+        - Promo
+      summary: Update Promo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                discount: 25
+                validTo: "2025-09-30T23:59:59Z"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "842"
+            ETag:
+              schema:
+                type: string
+                example: W/"34a-tx6hDXQA4UAv76Jme21DIpPWij4"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:45:51 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Cart updated successfully
+                data:
+                  id: 2
+                  userId: 2
+                  ticketId: 7
+                  quantity: 65
+                  createdAt: "2025-02-07T18:35:19.940Z"
+                  updatedAt: "2025-02-07T18:45:51.050Z"
+                  ticket:
+                    id: 7
+                    name: Concert Ticket VIP
+                    price: 1000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 3
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
+                    artist: Ariel Noah
+                    createdAt: "2025-02-06T17:35:53.548Z"
+                    updatedAt: "2025-02-06T17:43:27.965Z"
+                    event:
+                      id: 3
+                      name: Summer Festival 2024
+                      description: Annual summer music festival
+                      date: "2024-07-15T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: null
+                      createdAt: "2025-02-06T17:22:12.203Z"
+                      updatedAt: "2025-02-06T17:22:12.203Z"
+                    category:
+                      id: 1
+                      name: Vip Mantap
+                      createdAt: "2025-02-06T17:03:25.023Z"
+                      updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/promos/1:
+    delete:
+      tags:
+        - Promo
+      summary: Delete Promo
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "80"
+            ETag:
+              schema:
+                type: string
+                example: W/"50-ZfjfbnEdbNqwmaNN3AZmK6iMTMQ"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:44:37 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Item removed from cart successfully
+                data: null
+  /api/v1/notifications:
+    post:
+      tags:
+        - Notification
+      summary: Create Notification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                message: New promotion available!
+                userId: all
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "85"
+            ETag:
+              schema:
+                type: string
+                example: W/"55-3Ej5DPA3u0wZiC0Vlyysb0/A1i8"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:44:53 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Notification created successfully
+                data:
+                  count: 2
+  /api/v1/notifications/2/read:
+    patch:
+      tags:
+        - Notification
+      summary: Update Notification Read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                discount: 25
+                validTo: "2025-09-30T23:59:59Z"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "257"
+            ETag:
+              schema:
+                type: string
+                example: W/"101-EjXUmWGVmjc56g1Jmbx4Usw4w5Q"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:47:44 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 2
+                  message: >-
+                    New promo code FEBRUARYSIGMA2025 is available! Get 20%
+                    discount. Valid until 1/3/2025
+                  isRead: true
+                  userId: 2
+                  createdAt: "2025-02-09T17:41:40.164Z"
+                  updatedAt: "2025-02-09T17:47:44.660Z"
+  /api/v1/notifications/2/unread:
+    patch:
+      tags:
+        - Notification
+      summary: Update Notification Unread
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                discount: 25
+                validTo: "2025-09-30T23:59:59Z"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "258"
+            ETag:
+              schema:
+                type: string
+                example: W/"102-ndowm3+ecBuLiupczK669P3msDo"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:50:14 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  id: 2
+                  message: >-
+                    New promo code FEBRUARYSIGMA2025 is available! Get 20%
+                    discount. Valid until 1/3/2025
+                  isRead: false
+                  userId: 2
+                  createdAt: "2025-02-09T17:41:40.164Z"
+                  updatedAt: "2025-02-09T17:50:14.248Z"
+  /api/v1/notifications/mark-all-read:
+    patch:
+      tags:
+        - Notification
+      summary: Update Notification Mark All Read
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                discount: 25
+                validTo: "2025-09-30T23:59:59Z"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "77"
+            ETag:
+              schema:
+                type: string
+                example: W/"4d-Rrf/jkjQVNQz3XHRgEcS+bylBBw"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:51:27 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: All notifications marked as read
+                data: null
+  /api/v1/notifications/4:
+    delete:
+      tags:
+        - Notification
+      summary: Delete Notificaton
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "78"
+            ETag:
+              schema:
+                type: string
+                example: W/"4e-vTcLwwEDlmSgIdI0I2UezzSNLlg"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:52:42 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Notification deleted successfully
+                data: null
