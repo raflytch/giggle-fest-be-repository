@@ -27,16 +27,16 @@ paths:
     post:
       tags:
         - User Auth
-      summary: CreateAdmin
+      summary: Create Admin
       requestBody:
         content:
           application/json:
             schema:
               type: object
               example:
-                email: raflyazizabdillah30@gmail.com
+                email: 2210512003@mahasiswa.upnvj.ac.id
                 password: password
-                name: Rafly
+                name: Rafly Aziz Abdillah
                 role: admin
                 phoneNumber: "089684981540"
                 age: 20
@@ -61,15 +61,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "287"
+                example: "689"
             ETag:
               schema:
                 type: string
-                example: W/"11f-GR831RMWudxtTK6njrbK9wo5VJI"
+                example: W/"2b1-Q7uuVQo14LIqamApAEewxcIQfk8"
             Date:
               schema:
                 type: string
-                example: Mon, 03 Feb 2025 18:37:47 GMT
+                example: Tue, 11 Feb 2025 07:13:35 GMT
             Connection:
               schema:
                 type: string
@@ -83,16 +83,27 @@ paths:
               schema:
                 type: object
               example:
-                success: true
-                message: Admin created successfully
+                status: success
+                message: User registered successfully
                 data:
-                  id: 5
-                  email: anjayyyy@gmail.com
-                  password: $2b$10$5BThCG/WMBju0ep7qQ79c.IQOkH6G7DNrZuLd.p0Z3yAXaSmUNGNK
-                  name: Rafly Aziz
-                  role: admin
-                  createdAt: "2025-02-03T18:37:47.393Z"
-                  updatedAt: "2025-02-03T18:37:47.393Z"
+                  user:
+                    id: 3
+                    email: 2210512003@mahasiswa.upnvj.ac.id
+                    name: Rafly Aziz Abdillah
+                    age: 20
+                    phoneNumber: "089684981540"
+                    role: admin
+                    isVerified: false
+                    verificationToken: >-
+                      e67ead1025d20dd8b5f965990adf9d411e23afaa2a8527b0cd6f91789453e2fe
+                    resetToken: null
+                    resetOTP: null
+                    resetOTPExpires: null
+                    createdAt: "2025-02-11T07:13:31.340Z"
+                    updatedAt: "2025-02-11T07:13:31.340Z"
+                    authId: 3
+                  token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiIyMjEwNTEyMDAzQG1haGFzaXN3YS51cG52ai5hYy5pZCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczOTI1ODAxNSwiZXhwIjoxNzM5MzAxMjE1fQ.XebL49sC1WuIVe9dA86mQMsLatBIx4oVbwa83pf1Ovs
   /api/v1/auth/resend-verification:
     post:
       tags:
@@ -398,7 +409,7 @@ paths:
             schema:
               type: object
               example:
-                email: karinaghsn@gmail.com
+                email: raflyazizabdillah30@gmail.com
                 password: password
       responses:
         "200":
@@ -419,15 +430,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "522"
+                example: "525"
             ETag:
               schema:
                 type: string
-                example: W/"20a-qZ9YELaYg9JTSb22q7NlTH62HBo"
+                example: W/"20d-FyBUpflA3C09jJf47OlClJ0QTck"
             Date:
               schema:
                 type: string
-                example: Mon, 03 Feb 2025 17:32:12 GMT
+                example: Tue, 11 Feb 2025 07:15:49 GMT
             Connection:
               schema:
                 type: string
@@ -441,20 +452,22 @@ paths:
               schema:
                 type: object
               example:
-                success: true
-                message: User logged in successfully
+                status: success
+                message: Login successful
                 data:
                   user:
-                    id: 2
+                    id: 1
                     email: raflyazizabdillah30@gmail.com
-                    password: >-
-                      $2b$10$E0kHD2JItNiTr6ckN2Kx/.Vxip6QAwYIht4ZLc7nd8WS7TOvZBlWu
-                    name: Rafly
-                    role: user
-                    createdAt: "2025-02-03T17:31:55.934Z"
-                    updatedAt: "2025-02-03T17:31:55.934Z"
+                    name: Rafly Aziz Abdillah
+                    age: 20
+                    phoneNumber: "089684981540"
+                    role: admin
+                    isVerified: true
+                    createdAt: "2025-02-11T07:05:11.466Z"
+                    updatedAt: "2025-02-11T07:05:54.533Z"
+                    authId: 1
                   token: >-
-                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzM4NjAzOTMyLCJleHAiOjE3Mzg2NDcxMzJ9.pNUzNVJZjqIpjuc9q0HD54LdgsKbvrb7nPM4wMEkaxY
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJyYWZseWF6aXphYmRpbGxhaDMwQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczOTI1ODE0OSwiZXhwIjoxNzM5MzAxMzQ5fQ.lyP69sUPRFiKqHBHSYYPaO2Xv1l006Qc4KnpeE_u8EM
         "400":
           description: Bad Request
           headers:
@@ -523,15 +536,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "293"
+                example: "305"
             ETag:
               schema:
                 type: string
-                example: W/"125-w0d7FjxW+s7oqejVC3hq9gJGAhE"
+                example: W/"131-wXxJgB9GKSPOVlib2yPCXI3i4BI"
             Date:
               schema:
                 type: string
-                example: Mon, 03 Feb 2025 12:07:07 GMT
+                example: Tue, 11 Feb 2025 07:18:33 GMT
             Connection:
               schema:
                 type: string
@@ -545,15 +558,19 @@ paths:
               schema:
                 type: object
               example:
-                success: true
+                status: success
                 message: User retrieved successfully
                 data:
                   id: 1
                   email: raflyazizabdillah30@gmail.com
-                  password: $2b$10$kL.f1uvvGOktLqlsv/xcLeTo1ZOFn4pu17MyEjLilGfGqD7HX3kkS
                   name: Rafly Aziz Abdillah
-                  createdAt: "2025-02-03T11:47:28.979Z"
-                  updatedAt: "2025-02-03T11:47:28.979Z"
+                  age: 20
+                  phoneNumber: "089684981540"
+                  role: admin
+                  isVerified: true
+                  createdAt: "2025-02-11T07:05:11.466Z"
+                  updatedAt: "2025-02-11T07:05:54.533Z"
+                  authId: 1
         "404":
           description: Not Found
           headers:
@@ -606,9 +623,9 @@ paths:
             schema:
               type: object
               example:
-                name: Raja Hutan
-                age: 25
-                phoneNumber: "1234567890"
+                name: Rafly Aziz Ganteng
+                age: 22
+                phoneNumber: "089684981540"
       security:
         - bearerAuth: []
       responses:
@@ -619,6 +636,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -626,15 +647,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "291"
+                example: "302"
             ETag:
               schema:
                 type: string
-                example: W/"123-VeIJErRcYyRVXl+utW9WwNpHQLc"
+                example: W/"12e-6NbKiGOHbWYh5QIk+HuzIBOOogs"
             Date:
               schema:
                 type: string
-                example: Wed, 05 Feb 2025 02:31:41 GMT
+                example: Tue, 11 Feb 2025 07:24:34 GMT
             Connection:
               schema:
                 type: string
@@ -653,13 +674,13 @@ paths:
                 data:
                   id: 1
                   email: raflyazizabdillah30@gmail.com
-                  name: Raja Hutan
-                  age: 25
-                  phoneNumber: "1234567890"
-                  role: user
+                  name: Rafly Aziz Ganteng
+                  age: 22
+                  phoneNumber: "089684981540"
+                  role: admin
                   isVerified: true
-                  createdAt: "2025-02-05T01:48:18.435Z"
-                  updatedAt: "2025-02-05T02:31:41.714Z"
+                  createdAt: "2025-02-11T07:05:11.466Z"
+                  updatedAt: "2025-02-11T07:24:34.967Z"
                   authId: 1
         "400":
           description: Bad Request
@@ -699,6 +720,94 @@ paths:
               example:
                 status: error
                 message: "Unrecognized key(s) in object: 'password'"
+  /api/v1/users:
+    get:
+      tags:
+        - User Auth
+      summary: Get All User
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "852"
+            ETag:
+              schema:
+                type: string
+                example: W/"354-yMU+CVtW6J7Fgw/fjV6z98dcvYU"
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Feb 2025 07:19:11 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Users retrieved successfully
+                data:
+                  users:
+                    - id: 3
+                      email: 2210512003@mahasiswa.upnvj.ac.id
+                      name: Rafly Aziz Abdillah
+                      age: 20
+                      phoneNumber: "089684981540"
+                      role: admin
+                      isVerified: true
+                      createdAt: "2025-02-11T07:13:31.340Z"
+                      updatedAt: "2025-02-11T07:15:12.230Z"
+                      authId: 3
+                    - id: 2
+                      email: karinaghsn@gmail.com
+                      name: Rafly Aziz Abdillah
+                      age: 20
+                      phoneNumber: "089684981540"
+                      role: user
+                      isVerified: true
+                      createdAt: "2025-02-11T07:07:01.264Z"
+                      updatedAt: "2025-02-11T07:07:44.285Z"
+                      authId: 2
+                    - id: 1
+                      email: raflyazizabdillah30@gmail.com
+                      name: Rafly Aziz Abdillah
+                      age: 20
+                      phoneNumber: "089684981540"
+                      role: admin
+                      isVerified: true
+                      createdAt: "2025-02-11T07:05:11.466Z"
+                      updatedAt: "2025-02-11T07:05:54.533Z"
+                      authId: 1
+                  metadata:
+                    total: 3
+                    totalPages: 1
+                    currentPage: 1
+                    limit: 10
+  /api/v1/users/3:
     delete:
       tags:
         - User Auth
@@ -791,70 +900,6 @@ paths:
               example:
                 success: false
                 message: Access token not found
-  /api/v1/users:
-    get:
-      tags:
-        - User Auth
-      summary: Get All User
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: OK
-          headers:
-            X-Powered-By:
-              schema:
-                type: string
-                example: Express
-            Access-Control-Allow-Origin:
-              schema:
-                type: string
-                example: "*"
-            Content-Type:
-              schema:
-                type: string
-                example: application/json; charset=utf-8
-            Content-Length:
-              schema:
-                type: integer
-                example: "359"
-            ETag:
-              schema:
-                type: string
-                example: W/"167-2id5Oa2/TG3KiDq01w/BvlY0Bdk"
-            Date:
-              schema:
-                type: string
-                example: Mon, 03 Feb 2025 12:37:53 GMT
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Keep-Alive:
-              schema:
-                type: string
-                example: timeout=5
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                success: true
-                message: Users retrieved successfully
-                data:
-                  users:
-                    - id: 1
-                      email: raflyazizabdillah30@gmail.com
-                      password: >-
-                        $2b$10$kL.f1uvvGOktLqlsv/xcLeTo1ZOFn4pu17MyEjLilGfGqD7HX3kkS
-                      name: Rafly Aziz Abdillah
-                      createdAt: "2025-02-03T11:47:28.979Z"
-                      updatedAt: "2025-02-03T11:47:28.979Z"
-                  meta:
-                    page: 1
-                    limit: 5
-                    total: 1
-                    totalUsers: 1
   /api/v1/events:
     post:
       tags:
@@ -868,13 +913,13 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Summer Festival 2024
+                  example: Summer Festival 2025
                 description:
                   type: string
                   example: Annual summer music festival
                 date:
                   type: string
-                  example: "2024-07-15"
+                  example: "2025-02-10"
                 location:
                   type: string
                   example: Central Park
@@ -891,6 +936,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -898,15 +947,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "411"
+                example: "373"
             ETag:
               schema:
                 type: string
-                example: W/"19b-LsUtdMVFmUvjJ5tCLc9sfBgIMX0"
+                example: W/"175-6hArIwUW1J3U2F7rRxQk9ZFmQDU"
             Date:
               schema:
                 type: string
-                example: Wed, 05 Feb 2025 13:00:28 GMT
+                example: Tue, 11 Feb 2025 07:29:36 GMT
             Connection:
               schema:
                 type: string
@@ -923,15 +972,15 @@ paths:
                 status: success
                 message: Event created successfully
                 data:
-                  id: 1
-                  name: Summer Festival 2024
+                  id: 2
+                  name: Summer Festival 2025
                   description: Annual summer music festival
-                  date: "2024-07-15T00:00:00.000Z"
+                  date: "2025-02-10T00:00:00.000Z"
                   location: Central Park
                   imageUrl: >-
-                    https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_Bf-qt3icIQ.jpg
-                  createdAt: "2025-02-05T13:00:28.760Z"
-                  updatedAt: "2025-02-05T13:00:28.760Z"
+                    https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                  createdAt: "2025-02-11T07:29:36.799Z"
+                  updatedAt: "2025-02-11T07:29:36.799Z"
     get:
       tags:
         - Event
@@ -967,6 +1016,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -974,15 +1027,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "471"
+                example: "1318"
             ETag:
               schema:
                 type: string
-                example: W/"1d7-No9zr5Pmtl/y3z7hhE5U/IUyCKQ"
+                example: W/"526-U4SBqRvCC0+C2S0MtxrE6M00aiE"
             Date:
               schema:
                 type: string
-                example: Wed, 05 Feb 2025 13:07:34 GMT
+                example: Tue, 11 Feb 2025 07:39:28 GMT
             Connection:
               schema:
                 type: string
@@ -1001,19 +1054,53 @@ paths:
                 data:
                   events:
                     - id: 1
-                      name: Summer Festival 2024
+                      name: Summer Festival 2025 Sigma
                       description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
+                      date: "2025-02-11T00:00:00.000Z"
                       location: Central Park
                       imageUrl: >-
-                        https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_Bf-qt3icIQ.jpg
-                      createdAt: "2025-02-05T13:00:28.760Z"
-                      updatedAt: "2025-02-05T13:00:28.760Z"
-                      tickets: []
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                      createdAt: "2025-02-11T07:28:57.858Z"
+                      updatedAt: "2025-02-11T07:31:44.707Z"
+                      tickets:
+                        - id: 1
+                          name: Concert Ticket VIP
+                          price: 2000000
+                          quantity: 100
+                          userId: 1
+                          eventId: 1
+                          categoryId: 1
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                          artist: Taylor Swift
+                          createdAt: "2025-02-11T07:36:33.635Z"
+                          updatedAt: "2025-02-11T07:36:33.635Z"
+                    - id: 2
+                      name: Summer Festival 2025
+                      description: Annual summer music festival
+                      date: "2025-02-10T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                      createdAt: "2025-02-11T07:29:36.799Z"
+                      updatedAt: "2025-02-11T07:29:36.799Z"
+                      tickets:
+                        - id: 2
+                          name: Concert Ticket VIP
+                          price: 2000000
+                          quantity: 100
+                          userId: 1
+                          eventId: 2
+                          categoryId: 1
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/bg-visimisi__X24FugTdn.webp
+                          artist: Bruno Mars
+                          createdAt: "2025-02-11T07:37:03.842Z"
+                          updatedAt: "2025-02-11T07:37:03.842Z"
                   meta:
                     page: 1
                     limit: 5
-                    total: 1
+                    total: 2
                     totalPages: 1
   /api/v1/events/1:
     patch:
@@ -1028,13 +1115,13 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Summer Festival 2025
+                  example: Summer Festival 2025 Sigma
                 description:
                   type: string
                   example: Annual summer music festival
                 date:
                   type: string
-                  example: "2025-07-15"
+                  example: "2025-02-11"
                 location:
                   type: string
                   example: Central Park
@@ -1051,6 +1138,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1058,15 +1149,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "361"
+                example: "379"
             ETag:
               schema:
                 type: string
-                example: W/"169-d47M+vYel9DQM+rbT0fKj4g2pQc"
+                example: W/"17b-SPHaPkSUyLyHq8QOfXLT4GmLm94"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 16:24:00 GMT
+                example: Tue, 11 Feb 2025 07:31:44 GMT
             Connection:
               schema:
                 type: string
@@ -1084,13 +1175,14 @@ paths:
                 message: Event updated successfully
                 data:
                   id: 1
-                  name: Summer Festival 2025
+                  name: Summer Festival 2025 Sigma
                   description: Annual summer music festival
-                  date: "2025-07-15T00:00:00.000Z"
+                  date: "2025-02-11T00:00:00.000Z"
                   location: Central Park
-                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_lD2Tgkoxf.webp
-                  createdAt: "2025-02-06T16:19:35.627Z"
-                  updatedAt: "2025-02-06T16:24:00.958Z"
+                  imageUrl: >-
+                    https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                  createdAt: "2025-02-11T07:28:57.858Z"
+                  updatedAt: "2025-02-11T07:31:44.707Z"
     delete:
       tags:
         - Event
@@ -1151,6 +1243,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1158,15 +1254,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "404"
+                example: "653"
             ETag:
               schema:
                 type: string
-                example: W/"194-P8U+EkyPWIM7thCqLQ7gAu12mY4"
+                example: W/"28d-11zCgplmCLTYiRuzMJR4ga10/po"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 16:21:30 GMT
+                example: Tue, 11 Feb 2025 07:40:42 GMT
             Connection:
               schema:
                 type: string
@@ -1184,15 +1280,27 @@ paths:
                 message: Success
                 data:
                   id: 1
-                  name: Summer Festival 2024
+                  name: Summer Festival 2025 Sigma
                   description: Annual summer music festival
-                  date: "2024-07-15T00:00:00.000Z"
+                  date: "2025-02-11T00:00:00.000Z"
                   location: Central Park
                   imageUrl: >-
-                    https://ik.imagekit.io/5s5n2ob6a/antarafoto-hari-pertama-sekolah-di-jakarta-080724-bay-6.jpg-1_TGJXfdxzF.jpg
-                  createdAt: "2025-02-06T16:19:35.627Z"
-                  updatedAt: "2025-02-06T16:19:35.627Z"
-                  tickets: []
+                    https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                  createdAt: "2025-02-11T07:28:57.858Z"
+                  updatedAt: "2025-02-11T07:31:44.707Z"
+                  tickets:
+                    - id: 1
+                      name: Concert Ticket VIP
+                      price: 2000000
+                      quantity: 100
+                      userId: 1
+                      eventId: 1
+                      categoryId: 1
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                      artist: Taylor Swift
+                      createdAt: "2025-02-11T07:36:33.635Z"
+                      updatedAt: "2025-02-11T07:36:33.635Z"
   /api/v1/tickets:
     post:
       tags:
@@ -1209,19 +1317,19 @@ paths:
                   example: Concert Ticket VIP
                 price:
                   type: integer
-                  example: "1000000"
+                  example: "2000000"
                 quantity:
                   type: integer
                   example: "100"
                 eventId:
                   type: integer
-                  example: "3"
+                  example: "2"
                 categoryId:
                   type: integer
                   example: "1"
                 artist:
                   type: string
-                  example: Taylor Swift
+                  example: Bruno Mars
                 image:
                   type: string
                   format: binary
@@ -1235,6 +1343,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1242,15 +1354,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "712"
+                example: "785"
             ETag:
               schema:
                 type: string
-                example: W/"2c8-Ri952d4+D8pjwtpSx5yg58dZYHE"
+                example: W/"311-nYCct68Cmz8WVu4rJ328XKeFg+8"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:35:53 GMT
+                example: Tue, 11 Feb 2025 07:37:03 GMT
             Connection:
               schema:
                 type: string
@@ -1267,37 +1379,38 @@ paths:
                 status: success
                 message: Ticket created successfully
                 data:
-                  id: 7
+                  id: 2
                   name: Concert Ticket VIP
-                  price: 1000000
+                  price: 2000000
                   quantity: 100
                   userId: 1
-                  eventId: 3
+                  eventId: 2
                   categoryId: 1
-                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
-                  artist: Taylor Swift
-                  createdAt: "2025-02-06T17:35:53.548Z"
-                  updatedAt: "2025-02-06T17:35:53.548Z"
+                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi__X24FugTdn.webp
+                  artist: Bruno Mars
+                  createdAt: "2025-02-11T07:37:03.842Z"
+                  updatedAt: "2025-02-11T07:37:03.842Z"
                   event:
-                    id: 3
-                    name: Summer Festival 2024
+                    id: 2
+                    name: Summer Festival 2025
                     description: Annual summer music festival
-                    date: "2024-07-15T00:00:00.000Z"
+                    date: "2025-02-10T00:00:00.000Z"
                     location: Central Park
-                    imageUrl: null
-                    createdAt: "2025-02-06T17:22:12.203Z"
-                    updatedAt: "2025-02-06T17:22:12.203Z"
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                    createdAt: "2025-02-11T07:29:36.799Z"
+                    updatedAt: "2025-02-11T07:29:36.799Z"
                   category:
                     id: 1
-                    name: Vip Mantap
-                    createdAt: "2025-02-06T17:03:25.023Z"
-                    updatedAt: "2025-02-06T17:09:42.908Z"
+                    name: Premium tickets
+                    createdAt: "2025-02-11T07:35:16.365Z"
+                    updatedAt: "2025-02-11T07:35:16.365Z"
     get:
       tags:
         - Tickets
       summary: Get All Ticket
       security:
-        - bearerAuth: []
+        - noauthAuth: []
       parameters:
         - name: page
           in: query
@@ -1309,26 +1422,6 @@ paths:
           schema:
             type: integer
           example: "10"
-        - name: search
-          in: query
-          schema:
-            type: string
-          example: vip
-        - name: minPrice
-          in: query
-          schema:
-            type: integer
-          example: "500000"
-        - name: maxPrice
-          in: query
-          schema:
-            type: integer
-          example: "2000000"
-        - name: artist
-          in: query
-          schema:
-            type: string
-          example: taylor
       responses:
         "200":
           description: OK
@@ -1337,6 +1430,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1344,15 +1441,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "1462"
+                example: "1571"
             ETag:
               schema:
                 type: string
-                example: W/"5b6-2z4b2D/9NGdV1yaGvtWT5q+WBa4"
+                example: W/"623-RgEf67UZmx5RYmkqlK9MBdz8yuY"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:38:58 GMT
+                example: Tue, 11 Feb 2025 07:44:59 GMT
             Connection:
               schema:
                 type: string
@@ -1370,65 +1467,66 @@ paths:
                 message: Success
                 data:
                   tickets:
-                    - id: 7
+                    - id: 2
                       name: Concert Ticket VIP
                       price: 1000000
                       quantity: 100
                       userId: 1
-                      eventId: 3
+                      eventId: 2
                       categoryId: 1
                       imageUrl: >-
-                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
-                      artist: Taylor Swift
-                      createdAt: "2025-02-06T17:35:53.548Z"
-                      updatedAt: "2025-02-06T17:35:53.548Z"
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__xJiMFDGYX.png
+                      artist: Shawn Mendes
+                      createdAt: "2025-02-11T07:37:03.842Z"
+                      updatedAt: "2025-02-11T07:44:07.876Z"
                       event:
-                        id: 3
-                        name: Summer Festival 2024
+                        id: 2
+                        name: Summer Festival 2025
                         description: Annual summer music festival
-                        date: "2024-07-15T00:00:00.000Z"
-                        location: Central Park
-                        imageUrl: null
-                        createdAt: "2025-02-06T17:22:12.203Z"
-                        updatedAt: "2025-02-06T17:22:12.203Z"
-                      category:
-                        id: 1
-                        name: Vip Mantap
-                        createdAt: "2025-02-06T17:03:25.023Z"
-                        updatedAt: "2025-02-06T17:09:42.908Z"
-                    - id: 6
-                      name: Concert Ticket VIP
-                      price: 1000000
-                      quantity: 100
-                      userId: 1
-                      eventId: 4
-                      categoryId: 1
-                      imageUrl: >-
-                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
-                      artist: Taylor Swift
-                      createdAt: "2025-02-06T17:33:50.615Z"
-                      updatedAt: "2025-02-06T17:33:50.615Z"
-                      event:
-                        id: 4
-                        name: Summer Festival 2024
-                        description: Annual summer music festival
-                        date: "2024-07-15T00:00:00.000Z"
+                        date: "2025-02-10T00:00:00.000Z"
                         location: Central Park
                         imageUrl: >-
-                          https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
-                        createdAt: "2025-02-06T17:22:29.028Z"
-                        updatedAt: "2025-02-06T17:22:29.028Z"
+                          https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                        createdAt: "2025-02-11T07:29:36.799Z"
+                        updatedAt: "2025-02-11T07:29:36.799Z"
                       category:
                         id: 1
-                        name: Vip Mantap
-                        createdAt: "2025-02-06T17:03:25.023Z"
-                        updatedAt: "2025-02-06T17:09:42.908Z"
+                        name: Premium tickets
+                        createdAt: "2025-02-11T07:35:16.365Z"
+                        updatedAt: "2025-02-11T07:35:16.365Z"
+                    - id: 1
+                      name: Concert Ticket VIP
+                      price: 2000000
+                      quantity: 100
+                      userId: 1
+                      eventId: 1
+                      categoryId: 1
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                      artist: Taylor Swift
+                      createdAt: "2025-02-11T07:36:33.635Z"
+                      updatedAt: "2025-02-11T07:36:33.635Z"
+                      event:
+                        id: 1
+                        name: Summer Festival 2025 Sigma
+                        description: Annual summer music festival
+                        date: "2025-02-11T00:00:00.000Z"
+                        location: Central Park
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                        createdAt: "2025-02-11T07:28:57.858Z"
+                        updatedAt: "2025-02-11T07:31:44.707Z"
+                      category:
+                        id: 1
+                        name: Premium tickets
+                        createdAt: "2025-02-11T07:35:16.365Z"
+                        updatedAt: "2025-02-11T07:35:16.365Z"
                   meta:
                     page: 1
                     limit: 10
                     total: 2
                     totalPages: 1
-  /api/v1/tickets/7:
+  /api/v1/tickets/2:
     patch:
       tags:
         - Tickets
@@ -1456,7 +1554,7 @@ paths:
                   example: "1"
                 artist:
                   type: string
-                  example: Ariel Noah
+                  example: Shawn Mendes
                 image:
                   type: string
                   format: binary
@@ -1470,6 +1568,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1477,15 +1579,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "710"
+                example: "798"
             ETag:
               schema:
                 type: string
-                example: W/"2c6-UUt06tN9hZJdxah0o18p2IRPPKQ"
+                example: W/"31e-seNu3LG6NX6PY+Hq2U9Try7YTPg"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:43:27 GMT
+                example: Tue, 11 Feb 2025 07:44:07 GMT
             Connection:
               schema:
                 type: string
@@ -1502,38 +1604,39 @@ paths:
                 status: success
                 message: Ticket updated successfully
                 data:
-                  id: 7
+                  id: 2
                   name: Concert Ticket VIP
                   price: 1000000
                   quantity: 100
                   userId: 1
-                  eventId: 3
+                  eventId: 2
                   categoryId: 1
-                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
-                  artist: Ariel Noah
-                  createdAt: "2025-02-06T17:35:53.548Z"
-                  updatedAt: "2025-02-06T17:43:27.965Z"
+                  imageUrl: >-
+                    https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__xJiMFDGYX.png
+                  artist: Shawn Mendes
+                  createdAt: "2025-02-11T07:37:03.842Z"
+                  updatedAt: "2025-02-11T07:44:07.876Z"
                   event:
-                    id: 3
-                    name: Summer Festival 2024
+                    id: 2
+                    name: Summer Festival 2025
                     description: Annual summer music festival
-                    date: "2024-07-15T00:00:00.000Z"
+                    date: "2025-02-10T00:00:00.000Z"
                     location: Central Park
-                    imageUrl: null
-                    createdAt: "2025-02-06T17:22:12.203Z"
-                    updatedAt: "2025-02-06T17:22:12.203Z"
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                    createdAt: "2025-02-11T07:29:36.799Z"
+                    updatedAt: "2025-02-11T07:29:36.799Z"
                   category:
                     id: 1
-                    name: Vip Mantap
-                    createdAt: "2025-02-06T17:03:25.023Z"
-                    updatedAt: "2025-02-06T17:09:42.908Z"
-  /api/v1/tickets/6:
+                    name: Premium tickets
+                    createdAt: "2025-02-11T07:35:16.365Z"
+                    updatedAt: "2025-02-11T07:35:16.365Z"
     get:
       tags:
         - Tickets
       summary: Get Ticket By  Id
       security:
-        - bearerAuth: []
+        - noauthAuth: []
       responses:
         "200":
           description: OK
@@ -1542,6 +1645,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1549,15 +1656,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "749"
+                example: "778"
             ETag:
               schema:
                 type: string
-                example: W/"2ed-25A9ckJ2OX+GchrAItHYBKDgd5A"
+                example: W/"30a-5OZWwBZzBf9hcbtXwAuiV+FbFwg"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:40:55 GMT
+                example: Tue, 11 Feb 2025 07:45:30 GMT
             Connection:
               schema:
                 type: string
@@ -1574,39 +1681,40 @@ paths:
                 status: success
                 message: Success
                 data:
-                  id: 6
+                  id: 2
                   name: Concert Ticket VIP
                   price: 1000000
                   quantity: 100
                   userId: 1
-                  eventId: 4
+                  eventId: 2
                   categoryId: 1
-                  imageUrl: https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
-                  artist: Taylor Swift
-                  createdAt: "2025-02-06T17:33:50.615Z"
-                  updatedAt: "2025-02-06T17:33:50.615Z"
+                  imageUrl: >-
+                    https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__xJiMFDGYX.png
+                  artist: Shawn Mendes
+                  createdAt: "2025-02-11T07:37:03.842Z"
+                  updatedAt: "2025-02-11T07:44:07.876Z"
                   event:
-                    id: 4
-                    name: Summer Festival 2024
+                    id: 2
+                    name: Summer Festival 2025
                     description: Annual summer music festival
-                    date: "2024-07-15T00:00:00.000Z"
+                    date: "2025-02-10T00:00:00.000Z"
                     location: Central Park
                     imageUrl: >-
-                      https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
-                    createdAt: "2025-02-06T17:22:29.028Z"
-                    updatedAt: "2025-02-06T17:22:29.028Z"
+                      https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                    createdAt: "2025-02-11T07:29:36.799Z"
+                    updatedAt: "2025-02-11T07:29:36.799Z"
                   category:
                     id: 1
-                    name: Vip Mantap
-                    createdAt: "2025-02-06T17:03:25.023Z"
-                    updatedAt: "2025-02-06T17:09:42.908Z"
+                    name: Premium tickets
+                    createdAt: "2025-02-11T07:35:16.365Z"
+                    updatedAt: "2025-02-11T07:35:16.365Z"
   /api/v1/tickets/category/1:
     get:
       tags:
         - Tickets
       summary: Get Ticket By Category Id
       security:
-        - bearerAuth: []
+        - noauthAuth: []
       responses:
         "200":
           description: OK
@@ -1615,6 +1723,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1622,15 +1734,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "1394"
+                example: "1505"
             ETag:
               schema:
                 type: string
-                example: W/"572-TvC9Piafk7SGooYQHLOOxlMW9AI"
+                example: W/"5e1-X44pM+lNlkfjmHGo0kSf1J9onZY"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:44:29 GMT
+                example: Tue, 11 Feb 2025 07:46:07 GMT
             Connection:
               schema:
                 type: string
@@ -1647,66 +1759,67 @@ paths:
                 status: success
                 message: Success
                 data:
-                  - id: 7
+                  - id: 2
                     name: Concert Ticket VIP
                     price: 1000000
                     quantity: 100
                     userId: 1
-                    eventId: 3
+                    eventId: 2
                     categoryId: 1
                     imageUrl: >-
-                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
-                    artist: Ariel Noah
-                    createdAt: "2025-02-06T17:35:53.548Z"
-                    updatedAt: "2025-02-06T17:43:27.965Z"
+                      https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__xJiMFDGYX.png
+                    artist: Shawn Mendes
+                    createdAt: "2025-02-11T07:37:03.842Z"
+                    updatedAt: "2025-02-11T07:44:07.876Z"
                     event:
-                      id: 3
-                      name: Summer Festival 2024
+                      id: 2
+                      name: Summer Festival 2025
                       description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
-                      location: Central Park
-                      imageUrl: null
-                      createdAt: "2025-02-06T17:22:12.203Z"
-                      updatedAt: "2025-02-06T17:22:12.203Z"
-                    category:
-                      id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
-                  - id: 6
-                    name: Concert Ticket VIP
-                    price: 1000000
-                    quantity: 100
-                    userId: 1
-                    eventId: 4
-                    categoryId: 1
-                    imageUrl: >-
-                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
-                    artist: Taylor Swift
-                    createdAt: "2025-02-06T17:33:50.615Z"
-                    updatedAt: "2025-02-06T17:33:50.615Z"
-                    event:
-                      id: 4
-                      name: Summer Festival 2024
-                      description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
+                      date: "2025-02-10T00:00:00.000Z"
                       location: Central Park
                       imageUrl: >-
-                        https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
-                      createdAt: "2025-02-06T17:22:29.028Z"
-                      updatedAt: "2025-02-06T17:22:29.028Z"
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                      createdAt: "2025-02-11T07:29:36.799Z"
+                      updatedAt: "2025-02-11T07:29:36.799Z"
                     category:
                       id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
-  /api/v1/tickets/event/4:
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
+                  - id: 1
+                    name: Concert Ticket VIP
+                    price: 2000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 1
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                    artist: Taylor Swift
+                    createdAt: "2025-02-11T07:36:33.635Z"
+                    updatedAt: "2025-02-11T07:36:33.635Z"
+                    event:
+                      id: 1
+                      name: Summer Festival 2025 Sigma
+                      description: Annual summer music festival
+                      date: "2025-02-11T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                      createdAt: "2025-02-11T07:28:57.858Z"
+                      updatedAt: "2025-02-11T07:31:44.707Z"
+                    category:
+                      id: 1
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
+  /api/v1/tickets/event/2:
     get:
       tags:
         - Tickets
       summary: Get Ticket By Event Id
       security:
-        - bearerAuth: []
+        - noauthAuth: []
       responses:
         "200":
           description: OK
@@ -1715,6 +1828,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1722,15 +1839,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "751"
+                example: "780"
             ETag:
               schema:
                 type: string
-                example: W/"2ef-nIojBOW0vfN5s3l2XCmgoepAcn8"
+                example: W/"30c-GJwuRBn82YUnzBjbMM5Pzxe0z3g"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:45:47 GMT
+                example: Tue, 11 Feb 2025 07:46:47 GMT
             Connection:
               schema:
                 type: string
@@ -1747,33 +1864,33 @@ paths:
                 status: success
                 message: Success
                 data:
-                  - id: 6
+                  - id: 2
                     name: Concert Ticket VIP
                     price: 1000000
                     quantity: 100
                     userId: 1
-                    eventId: 4
+                    eventId: 2
                     categoryId: 1
                     imageUrl: >-
-                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_sSyYWBBBT.webp
-                    artist: Taylor Swift
-                    createdAt: "2025-02-06T17:33:50.615Z"
-                    updatedAt: "2025-02-06T17:33:50.615Z"
+                      https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__xJiMFDGYX.png
+                    artist: Shawn Mendes
+                    createdAt: "2025-02-11T07:37:03.842Z"
+                    updatedAt: "2025-02-11T07:44:07.876Z"
                     event:
-                      id: 4
-                      name: Summer Festival 2024
+                      id: 2
+                      name: Summer Festival 2025
                       description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
+                      date: "2025-02-10T00:00:00.000Z"
                       location: Central Park
                       imageUrl: >-
-                        https://ik.imagekit.io/5s5n2ob6a/loginbanner_n8YDJ3udv.webp
-                      createdAt: "2025-02-06T17:22:29.028Z"
-                      updatedAt: "2025-02-06T17:22:29.028Z"
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__kKaghfBKt.png
+                      createdAt: "2025-02-11T07:29:36.799Z"
+                      updatedAt: "2025-02-11T07:29:36.799Z"
                     category:
                       id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
   /api/v1/categories:
     post:
       tags:
@@ -1785,7 +1902,7 @@ paths:
             schema:
               type: object
               example:
-                name: Business
+                name: Premium tickets
       security:
         - bearerAuth: []
       responses:
@@ -1796,6 +1913,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1803,15 +1924,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "174"
+                example: "181"
             ETag:
               schema:
                 type: string
-                example: W/"ae-c4LC5IsJmSZ0OfSbSBfnKIBDamE"
+                example: W/"b5-VsywntxWZ1uyCBpDNNXaHKqqWyo"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:06:02 GMT
+                example: Tue, 11 Feb 2025 07:35:16 GMT
             Connection:
               schema:
                 type: string
@@ -1828,10 +1949,10 @@ paths:
                 status: success
                 message: Category created successfully
                 data:
-                  id: 4
-                  name: Business
-                  createdAt: "2025-02-06T17:06:02.891Z"
-                  updatedAt: "2025-02-06T17:06:02.891Z"
+                  id: 1
+                  name: Premium tickets
+                  createdAt: "2025-02-11T07:35:16.365Z"
+                  updatedAt: "2025-02-11T07:35:16.365Z"
     get:
       tags:
         - Category
@@ -1853,7 +1974,7 @@ paths:
           in: query
           schema:
             type: string
-          example: Vip
+          example: premium
       responses:
         "200":
           description: OK
@@ -1862,6 +1983,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -1869,15 +1994,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "218"
+                example: "230"
             ETag:
               schema:
                 type: string
-                example: W/"da-sFWzHzznsUi67NuVXoAIFILLA9w"
+                example: W/"e6-mD99ALEWcvh2xJToZYKrdt3Ss1A"
             Date:
               schema:
                 type: string
-                example: Thu, 06 Feb 2025 17:07:29 GMT
+                example: Tue, 11 Feb 2025 07:48:15 GMT
             Connection:
               schema:
                 type: string
@@ -1896,9 +2021,9 @@ paths:
                 data:
                   categories:
                     - id: 1
-                      name: VIP
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:03:25.023Z"
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
                   meta:
                     page: 1
                     limit: 10
@@ -2083,6 +2208,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -2090,15 +2219,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "676"
+                example: "770"
             ETag:
               schema:
                 type: string
-                example: W/"2a4-YaJvSRQvnZlTcvBQzuTd5/0mxk4"
+                example: W/"302-kOH3b7Nkttwmf1cWZpYkANb93GU"
             Date:
               schema:
                 type: string
-                example: Fri, 07 Feb 2025 17:58:43 GMT
+                example: Tue, 11 Feb 2025 07:50:12 GMT
             Connection:
               schema:
                 type: string
@@ -2115,33 +2244,34 @@ paths:
                 status: success
                 message: Review created successfully
                 data:
-                  id: 3
-                  rating: 5
+                  id: 1
+                  rating: 4
                   comment: Great experience with this ticket!
-                  userId: 2
-                  ticketId: 7
-                  createdAt: "2025-02-07T17:58:43.678Z"
-                  updatedAt: "2025-02-07T17:58:43.678Z"
+                  userId: 1
+                  ticketId: 1
+                  createdAt: "2025-02-11T07:50:12.040Z"
+                  updatedAt: "2025-02-11T07:50:12.040Z"
                   user:
-                    id: 2
-                    name: Ryan
+                    id: 1
+                    name: Rafly Aziz Ganteng
                   ticket:
-                    id: 7
+                    id: 1
                     name: Concert Ticket VIP
                     event:
-                      id: 3
-                      name: Summer Festival 2024
+                      id: 1
+                      name: Summer Festival 2025 Sigma
                       description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
+                      date: "2025-02-11T00:00:00.000Z"
                       location: Central Park
-                      imageUrl: null
-                      createdAt: "2025-02-06T17:22:12.203Z"
-                      updatedAt: "2025-02-06T17:22:12.203Z"
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                      createdAt: "2025-02-11T07:28:57.858Z"
+                      updatedAt: "2025-02-11T07:31:44.707Z"
                     category:
                       id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
         "400":
           description: Bad Request
           headers:
@@ -2182,10 +2312,10 @@ paths:
                 message: You have already reviewed this ticket
     get:
       tags:
-        - Notification
-      summary: Get All Notifications
+        - Reviews
+      summary: Get All Reviews
       security:
-        - bearerAuth: []
+        - noauthAuth: []
       parameters:
         - name: page
           in: query
@@ -2205,6 +2335,86 @@ paths:
               schema:
                 type: string
                 example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "724"
+            ETag:
+              schema:
+                type: string
+                example: W/"2d4-b7EzuVyCc7N9v+D9LlC2TcIjgUE"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:00:16 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  reviews:
+                    - id: 3
+                      rating: 5
+                      comment: Great experience with this ticket!
+                      userId: 2
+                      ticketId: 7
+                      createdAt: "2025-02-07T17:58:43.678Z"
+                      updatedAt: "2025-02-07T17:58:43.678Z"
+                      user:
+                        id: 2
+                        name: Ryan
+                      ticket:
+                        id: 7
+                        name: Concert Ticket VIP
+                        event:
+                          id: 3
+                          name: Summer Festival 2024
+                          description: Annual summer music festival
+                          date: "2024-07-15T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: null
+                          createdAt: "2025-02-06T17:22:12.203Z"
+                          updatedAt: "2025-02-06T17:22:12.203Z"
+                        category:
+                          id: 1
+                          name: Vip Mantap
+                          createdAt: "2025-02-06T17:03:25.023Z"
+                          updatedAt: "2025-02-06T17:09:42.908Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/reviews/1:
+    get:
+      tags:
+        - Reviews
+      summary: Get Reviews By Id
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
             Access-Control-Allow-Origin:
               schema:
                 type: string
@@ -2216,15 +2426,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "482"
+                example: "750"
             ETag:
               schema:
                 type: string
-                example: W/"1e2-R6r/CqoyKnmqYjHIbAnup1ZuUN0"
+                example: W/"2ee-0HvwqTVmWpTYSYfaZdTNQM9oUvw"
             Date:
               schema:
                 type: string
-                example: Sun, 09 Feb 2025 17:46:06 GMT
+                example: Tue, 11 Feb 2025 07:50:58 GMT
             Connection:
               schema:
                 type: string
@@ -2241,31 +2451,124 @@ paths:
                 status: success
                 message: Success
                 data:
-                  notifications:
-                    - id: 4
-                      message: New promotion available!
-                      isRead: false
-                      userId: 2
-                      createdAt: "2025-02-09T17:44:53.678Z"
-                      updatedAt: "2025-02-09T17:44:53.678Z"
-                    - id: 2
-                      message: >-
-                        New promo code FEBRUARYSIGMA2025 is available! Get 20%
-                        discount. Valid until 1/3/2025
-                      isRead: false
-                      userId: 2
-                      createdAt: "2025-02-09T17:41:40.164Z"
-                      updatedAt: "2025-02-09T17:41:40.164Z"
-                  meta:
-                    page: 1
-                    limit: 10
-                    total: 2
-                    totalPages: 1
-  /api/v1/reviews/3:
+                  id: 1
+                  rating: 4
+                  comment: Great experience with this ticket!
+                  userId: 1
+                  ticketId: 1
+                  createdAt: "2025-02-11T07:50:12.040Z"
+                  updatedAt: "2025-02-11T07:50:12.040Z"
+                  user:
+                    id: 1
+                    name: Rafly Aziz Ganteng
+                  ticket:
+                    id: 1
+                    name: Concert Ticket VIP
+                    event:
+                      id: 1
+                      name: Summer Festival 2025 Sigma
+                      description: Annual summer music festival
+                      date: "2025-02-11T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                      createdAt: "2025-02-11T07:28:57.858Z"
+                      updatedAt: "2025-02-11T07:31:44.707Z"
+                    category:
+                      id: 1
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
+  /api/v1/reviews/ticket/1:
     get:
       tags:
         - Reviews
-      summary: Get Reviews By Id
+      summary: Get Reviews By Ticket Id
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "818"
+            ETag:
+              schema:
+                type: string
+                example: W/"332-P+0iosCDk+oT2lqED4QHPHfxsFE"
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Feb 2025 07:51:46 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  reviews:
+                    - id: 1
+                      rating: 4
+                      comment: Great experience with this ticket!
+                      userId: 1
+                      ticketId: 1
+                      createdAt: "2025-02-11T07:50:12.040Z"
+                      updatedAt: "2025-02-11T07:50:12.040Z"
+                      user:
+                        id: 1
+                        name: Rafly Aziz Ganteng
+                      ticket:
+                        id: 1
+                        name: Concert Ticket VIP
+                        event:
+                          id: 1
+                          name: Summer Festival 2025 Sigma
+                          description: Annual summer music festival
+                          date: "2025-02-11T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                          createdAt: "2025-02-11T07:28:57.858Z"
+                          updatedAt: "2025-02-11T07:31:44.707Z"
+                        category:
+                          id: 1
+                          name: Premium tickets
+                          createdAt: "2025-02-11T07:35:16.365Z"
+                          updatedAt: "2025-02-11T07:35:16.365Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/reviews/user/1:
+    get:
+      tags:
+        - Reviews
+      summary: Get Reviews By User Id
       security:
         - bearerAuth: []
       responses:
@@ -2276,6 +2579,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -2283,15 +2590,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "656"
+                example: "774"
             ETag:
               schema:
                 type: string
-                example: W/"290-VV47cEWB6RmZcbJGWqJ2QJBss2g"
+                example: W/"306-MNKuM2D4Je7P9yZ3w+vfvd0Pf5U"
             Date:
               schema:
                 type: string
-                example: Fri, 07 Feb 2025 18:01:33 GMT
+                example: Tue, 11 Feb 2025 07:57:10 GMT
             Connection:
               schema:
                 type: string
@@ -2308,33 +2615,38 @@ paths:
                 status: success
                 message: Success
                 data:
-                  id: 3
-                  rating: 5
-                  comment: Great experience with this ticket!
-                  userId: 2
-                  ticketId: 7
-                  createdAt: "2025-02-07T17:58:43.678Z"
-                  updatedAt: "2025-02-07T17:58:43.678Z"
-                  user:
-                    id: 2
-                    name: Ryan
-                  ticket:
-                    id: 7
-                    name: Concert Ticket VIP
-                    event:
-                      id: 3
-                      name: Summer Festival 2024
-                      description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
-                      location: Central Park
-                      imageUrl: null
-                      createdAt: "2025-02-06T17:22:12.203Z"
-                      updatedAt: "2025-02-06T17:22:12.203Z"
-                    category:
-                      id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
+                  reviews:
+                    - id: 1
+                      rating: 4
+                      comment: Great experience with this ticket!
+                      userId: 1
+                      ticketId: 1
+                      createdAt: "2025-02-11T07:50:12.040Z"
+                      updatedAt: "2025-02-11T07:50:12.040Z"
+                      ticket:
+                        id: 1
+                        name: Concert Ticket VIP
+                        event:
+                          id: 1
+                          name: Summer Festival 2025 Sigma
+                          description: Annual summer music festival
+                          date: "2025-02-11T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                          createdAt: "2025-02-11T07:28:57.858Z"
+                          updatedAt: "2025-02-11T07:31:44.707Z"
+                        category:
+                          id: 1
+                          name: Premium tickets
+                          createdAt: "2025-02-11T07:35:16.365Z"
+                          updatedAt: "2025-02-11T07:35:16.365Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 1
+                    totalPages: 1
+  /api/v1/reviews/3:
     patch:
       tags:
         - Reviews
@@ -2418,8 +2730,8 @@ paths:
                       updatedAt: "2025-02-06T17:09:42.908Z"
     delete:
       tags:
-        - Cart
-      summary: Delete Cart
+        - Reviews
+      summary: Delete Review
       security:
         - bearerAuth: []
       responses:
@@ -2437,15 +2749,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "80"
+                example: "72"
             ETag:
               schema:
                 type: string
-                example: W/"50-ZfjfbnEdbNqwmaNN3AZmK6iMTMQ"
+                example: W/"48-hOHnFur5eHadWwCA3an40u+qFSA"
             Date:
               schema:
                 type: string
-                example: Fri, 07 Feb 2025 18:44:37 GMT
+                example: Fri, 07 Feb 2025 18:10:11 GMT
             Connection:
               schema:
                 type: string
@@ -2460,165 +2772,8 @@ paths:
                 type: object
               example:
                 status: success
-                message: Item removed from cart successfully
+                message: Review deleted successfully
                 data: null
-  /api/v1/reviews/ticket/7:
-    get:
-      tags:
-        - Reviews
-      summary: Get Reviews By Ticket Id
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: OK
-          headers:
-            X-Powered-By:
-              schema:
-                type: string
-                example: Express
-            Content-Type:
-              schema:
-                type: string
-                example: application/json; charset=utf-8
-            Content-Length:
-              schema:
-                type: integer
-                example: "724"
-            ETag:
-              schema:
-                type: string
-                example: W/"2d4-b7EzuVyCc7N9v+D9LlC2TcIjgUE"
-            Date:
-              schema:
-                type: string
-                example: Fri, 07 Feb 2025 18:03:33 GMT
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Keep-Alive:
-              schema:
-                type: string
-                example: timeout=5
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                status: success
-                message: Success
-                data:
-                  reviews:
-                    - id: 3
-                      rating: 5
-                      comment: Great experience with this ticket!
-                      userId: 2
-                      ticketId: 7
-                      createdAt: "2025-02-07T17:58:43.678Z"
-                      updatedAt: "2025-02-07T17:58:43.678Z"
-                      user:
-                        id: 2
-                        name: Ryan
-                      ticket:
-                        id: 7
-                        name: Concert Ticket VIP
-                        event:
-                          id: 3
-                          name: Summer Festival 2024
-                          description: Annual summer music festival
-                          date: "2024-07-15T00:00:00.000Z"
-                          location: Central Park
-                          imageUrl: null
-                          createdAt: "2025-02-06T17:22:12.203Z"
-                          updatedAt: "2025-02-06T17:22:12.203Z"
-                        category:
-                          id: 1
-                          name: Vip Mantap
-                          createdAt: "2025-02-06T17:03:25.023Z"
-                          updatedAt: "2025-02-06T17:09:42.908Z"
-                  meta:
-                    page: 1
-                    limit: 10
-                    total: 1
-                    totalPages: 1
-  /api/v1/reviews/user/2:
-    get:
-      tags:
-        - Reviews
-      summary: Get Reviews By User Id
-      security:
-        - bearerAuth: []
-      responses:
-        "200":
-          description: OK
-          headers:
-            X-Powered-By:
-              schema:
-                type: string
-                example: Express
-            Content-Type:
-              schema:
-                type: string
-                example: application/json; charset=utf-8
-            Content-Length:
-              schema:
-                type: integer
-                example: "694"
-            ETag:
-              schema:
-                type: string
-                example: W/"2b6-YYaorhdXQn04LHafyAQB0oZY/zk"
-            Date:
-              schema:
-                type: string
-                example: Fri, 07 Feb 2025 18:05:21 GMT
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Keep-Alive:
-              schema:
-                type: string
-                example: timeout=5
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                status: success
-                message: Success
-                data:
-                  reviews:
-                    - id: 3
-                      rating: 5
-                      comment: Great experience with this ticket!
-                      userId: 2
-                      ticketId: 7
-                      createdAt: "2025-02-07T17:58:43.678Z"
-                      updatedAt: "2025-02-07T17:58:43.678Z"
-                      ticket:
-                        id: 7
-                        name: Concert Ticket VIP
-                        event:
-                          id: 3
-                          name: Summer Festival 2024
-                          description: Annual summer music festival
-                          date: "2024-07-15T00:00:00.000Z"
-                          location: Central Park
-                          imageUrl: null
-                          createdAt: "2025-02-06T17:22:12.203Z"
-                          updatedAt: "2025-02-06T17:22:12.203Z"
-                        category:
-                          id: 1
-                          name: Vip Mantap
-                          createdAt: "2025-02-06T17:03:25.023Z"
-                          updatedAt: "2025-02-06T17:09:42.908Z"
-                  meta:
-                    page: 1
-                    limit: 10
-                    total: 1
-                    totalPages: 1
   /api/v1/payments/initialize:
     post:
       tags:
@@ -2817,7 +2972,7 @@ paths:
                     limit: 10
                     total: 1
                     totalPages: 1
-  /api/v1/payments/1:
+  /api/v1/payments/5:
     get:
       tags:
         - Payment
@@ -3090,16 +3245,16 @@ paths:
   /api/v1/cart:
     post:
       tags:
-        - Promo
-      summary: Create Promo
+        - Cart
+      summary: Create Cart
       requestBody:
         content:
           application/json:
             schema:
               type: object
               example:
-                ticketId: 6
-                quantity: 2
+                ticketId: 1
+                quantity: 10
       security:
         - bearerAuth: []
       responses:
@@ -3121,15 +3276,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "275"
+                example: "930"
             ETag:
               schema:
                 type: string
-                example: W/"113-o++4hIyCX5U8p7yl+WDbyHnZQD8"
+                example: W/"3a2-86MizEgKf7opt/YBkyaN6R0R/LM"
             Date:
               schema:
                 type: string
-                example: Sun, 09 Feb 2025 17:56:05 GMT
+                example: Tue, 11 Feb 2025 08:05:09 GMT
             Connection:
               schema:
                 type: string
@@ -3144,15 +3299,129 @@ paths:
                 type: object
               example:
                 status: success
-                message: Promo code created successfully
+                message: Item added to cart successfully
                 data:
-                  id: 6
-                  code: FEBRUARICERIA2025
-                  discount: 20
-                  validFrom: "2025-02-01T00:00:00.000Z"
-                  validTo: "2025-02-20T23:59:59.000Z"
-                  createdAt: "2025-02-09T17:56:05.716Z"
-                  updatedAt: "2025-02-09T17:56:05.716Z"
+                  id: 1
+                  userId: 1
+                  ticketId: 1
+                  quantity: 10
+                  createdAt: "2025-02-11T08:05:09.816Z"
+                  updatedAt: "2025-02-11T08:05:09.816Z"
+                  ticket:
+                    id: 1
+                    name: Concert Ticket VIP
+                    price: 2000000
+                    quantity: 100
+                    userId: 1
+                    eventId: 1
+                    categoryId: 1
+                    imageUrl: >-
+                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                    artist: Taylor Swift
+                    createdAt: "2025-02-11T07:36:33.635Z"
+                    updatedAt: "2025-02-11T07:36:33.635Z"
+                    event:
+                      id: 1
+                      name: Summer Festival 2025 Sigma
+                      description: Annual summer music festival
+                      date: "2025-02-11T00:00:00.000Z"
+                      location: Central Park
+                      imageUrl: >-
+                        https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                      createdAt: "2025-02-11T07:28:57.858Z"
+                      updatedAt: "2025-02-11T07:31:44.707Z"
+                    category:
+                      id: 1
+                      name: Premium tickets
+                      createdAt: "2025-02-11T07:35:16.365Z"
+                      updatedAt: "2025-02-11T07:35:16.365Z"
+    get:
+      tags:
+        - Cart
+      summary: Get All Cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "950"
+            ETag:
+              schema:
+                type: string
+                example: W/"3b6-uSYZA/TPX3uRUYl0wyFmtDferf8"
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Feb 2025 08:05:34 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  items:
+                    - id: 1
+                      userId: 1
+                      ticketId: 1
+                      quantity: 10
+                      createdAt: "2025-02-11T08:05:09.816Z"
+                      updatedAt: "2025-02-11T08:05:09.816Z"
+                      ticket:
+                        id: 1
+                        name: Concert Ticket VIP
+                        price: 2000000
+                        quantity: 100
+                        userId: 1
+                        eventId: 1
+                        categoryId: 1
+                        imageUrl: >-
+                          https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_C7ZCamBqr.webp
+                        artist: Taylor Swift
+                        createdAt: "2025-02-11T07:36:33.635Z"
+                        updatedAt: "2025-02-11T07:36:33.635Z"
+                        event:
+                          id: 1
+                          name: Summer Festival 2025 Sigma
+                          description: Annual summer music festival
+                          date: "2025-02-11T00:00:00.000Z"
+                          location: Central Park
+                          imageUrl: >-
+                            https://ik.imagekit.io/5s5n2ob6a/localhost_8080_api-docs__3ooxF9Dca.png
+                          createdAt: "2025-02-11T07:28:57.858Z"
+                          updatedAt: "2025-02-11T07:31:44.707Z"
+                        category:
+                          id: 1
+                          name: Premium tickets
+                          createdAt: "2025-02-11T07:35:16.365Z"
+                          updatedAt: "2025-02-11T07:35:16.365Z"
+                  total: 20000000
+                  totalItems: 1
   /api/v1/cart/2:
     patch:
       tags:
@@ -3240,7 +3509,121 @@ paths:
                       name: Vip Mantap
                       createdAt: "2025-02-06T17:03:25.023Z"
                       updatedAt: "2025-02-06T17:09:42.908Z"
+  /api/v1/cart/1:
+    delete:
+      tags:
+        - Cart
+      summary: Delete Cart
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "80"
+            ETag:
+              schema:
+                type: string
+                example: W/"50-ZfjfbnEdbNqwmaNN3AZmK6iMTMQ"
+            Date:
+              schema:
+                type: string
+                example: Fri, 07 Feb 2025 18:44:37 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Item removed from cart successfully
+                data: null
   /api/v1/promos:
+    post:
+      tags:
+        - Promo
+      summary: Create Promo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                code: FEBRUARICERIA2025
+                discount: 20
+                validFrom: "2025-02-01T00:00:00Z"
+                validTo: "2025-02-20T23:59:59Z"
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Created
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "275"
+            ETag:
+              schema:
+                type: string
+                example: W/"113-o++4hIyCX5U8p7yl+WDbyHnZQD8"
+            Date:
+              schema:
+                type: string
+                example: Sun, 09 Feb 2025 17:56:05 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Promo code created successfully
+                data:
+                  id: 6
+                  code: FEBRUARICERIA2025
+                  discount: 20
+                  validFrom: "2025-02-01T00:00:00.000Z"
+                  validTo: "2025-02-20T23:59:59.000Z"
+                  createdAt: "2025-02-09T17:56:05.716Z"
+                  updatedAt: "2025-02-09T17:56:05.716Z"
     get:
       tags:
         - Promo
@@ -3394,7 +3777,7 @@ paths:
                   validTo: "2025-02-28T23:59:59.000Z"
                   createdAt: "2025-02-09T17:41:39.905Z"
                   updatedAt: "2025-02-09T17:41:39.905Z"
-  /api/v1/promos/2:
+  /api/v1/promos/1:
     patch:
       tags:
         - Promo
@@ -3417,6 +3800,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -3424,15 +3811,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "842"
+                example: "275"
             ETag:
               schema:
                 type: string
-                example: W/"34a-tx6hDXQA4UAv76Jme21DIpPWij4"
+                example: W/"113-uwdhKJvNw004YNfveGS2A444vZU"
             Date:
               schema:
                 type: string
-                example: Fri, 07 Feb 2025 18:45:51 GMT
+                example: Tue, 11 Feb 2025 08:01:32 GMT
             Connection:
               schema:
                 type: string
@@ -3447,42 +3834,16 @@ paths:
                 type: object
               example:
                 status: success
-                message: Cart updated successfully
+                message: Promo code updated successfully
                 data:
-                  id: 2
-                  userId: 2
-                  ticketId: 7
-                  quantity: 65
-                  createdAt: "2025-02-07T18:35:19.940Z"
-                  updatedAt: "2025-02-07T18:45:51.050Z"
-                  ticket:
-                    id: 7
-                    name: Concert Ticket VIP
-                    price: 1000000
-                    quantity: 100
-                    userId: 1
-                    eventId: 3
-                    categoryId: 1
-                    imageUrl: >-
-                      https://ik.imagekit.io/5s5n2ob6a/bg-visimisi_ZVUiKNtu9.webp
-                    artist: Ariel Noah
-                    createdAt: "2025-02-06T17:35:53.548Z"
-                    updatedAt: "2025-02-06T17:43:27.965Z"
-                    event:
-                      id: 3
-                      name: Summer Festival 2024
-                      description: Annual summer music festival
-                      date: "2024-07-15T00:00:00.000Z"
-                      location: Central Park
-                      imageUrl: null
-                      createdAt: "2025-02-06T17:22:12.203Z"
-                      updatedAt: "2025-02-06T17:22:12.203Z"
-                    category:
-                      id: 1
-                      name: Vip Mantap
-                      createdAt: "2025-02-06T17:03:25.023Z"
-                      updatedAt: "2025-02-06T17:09:42.908Z"
-  /api/v1/promos/1:
+                  id: 1
+                  code: FEBRUARICERIA2025
+                  discount: 25
+                  validFrom: "2025-02-01T00:00:00.000Z"
+                  validTo: "2025-09-30T23:59:59.000Z"
+                  createdAt: "2025-02-11T07:59:58.881Z"
+                  updatedAt: "2025-02-11T08:01:32.411Z"
+  /api/v1/promos/2:
     delete:
       tags:
         - Promo
@@ -3497,6 +3858,10 @@ paths:
               schema:
                 type: string
                 example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
             Content-Type:
               schema:
                 type: string
@@ -3504,15 +3869,15 @@ paths:
             Content-Length:
               schema:
                 type: integer
-                example: "80"
+                example: "76"
             ETag:
               schema:
                 type: string
-                example: W/"50-ZfjfbnEdbNqwmaNN3AZmK6iMTMQ"
+                example: W/"4c-e9jJ/ZvkgdLZ40vni0TW36MHwlY"
             Date:
               schema:
                 type: string
-                example: Fri, 07 Feb 2025 18:44:37 GMT
+                example: Tue, 11 Feb 2025 08:02:44 GMT
             Connection:
               schema:
                 type: string
@@ -3527,7 +3892,7 @@ paths:
                 type: object
               example:
                 status: success
-                message: Item removed from cart successfully
+                message: Promo code deleted successfully
                 data: null
   /api/v1/notifications:
     post:
@@ -3589,6 +3954,103 @@ paths:
                 message: Notification created successfully
                 data:
                   count: 2
+    get:
+      tags:
+        - Notification
+      summary: Get All Notifications
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "10"
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: "943"
+            ETag:
+              schema:
+                type: string
+                example: W/"3af-wAzYlCVqqrcQPjCyktsytjrOmfc"
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Feb 2025 08:03:24 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: success
+                message: Success
+                data:
+                  notifications:
+                    - id: 8
+                      message: Promo code FEBRUARISEDIH2025 is no longer available
+                      isRead: false
+                      userId: 1
+                      createdAt: "2025-02-11T08:02:44.470Z"
+                      updatedAt: "2025-02-11T08:02:44.470Z"
+                    - id: 6
+                      message: >-
+                        New promo code FEBRUARISEDIH2025 is available! Get 20%
+                        discount. Valid until 21/2/2025
+                      isRead: false
+                      userId: 1
+                      createdAt: "2025-02-11T08:02:26.276Z"
+                      updatedAt: "2025-02-11T08:02:26.276Z"
+                    - id: 4
+                      message: >-
+                        Promo code FEBRUARICERIA2025 has been updated! Now
+                        offering 25% discount. Valid until 1/10/2025
+                      isRead: false
+                      userId: 1
+                      createdAt: "2025-02-11T08:01:32.418Z"
+                      updatedAt: "2025-02-11T08:01:32.418Z"
+                    - id: 2
+                      message: >-
+                        New promo code FEBRUARICERIA2025 is available! Get 20%
+                        discount. Valid until 21/2/2025
+                      isRead: false
+                      userId: 1
+                      createdAt: "2025-02-11T07:59:59.034Z"
+                      updatedAt: "2025-02-11T07:59:59.034Z"
+                  meta:
+                    page: 1
+                    limit: 10
+                    total: 4
+                    totalPages: 1
   /api/v1/notifications/2/read:
     patch:
       tags:
