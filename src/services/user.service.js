@@ -4,7 +4,6 @@ import * as userRepository from "../repositories/user.repository.js";
 import { generateToken } from "../utils/token.js";
 import { sendVerificationEmail } from "../utils/email.service.js";
 
-// Register a new user
 export const register = async (userData) => {
   const existingUser = await userRepository.findUserByEmail(userData.email);
   if (existingUser) {
@@ -51,16 +50,37 @@ export const verifyEmail = async (verificationToken) => {
   });
 };
 
-// Login a user
-export const login = async (email, password) => {
+export const resendVerification = async (email) => {
   const user = await userRepository.findUserByEmail(email);
   if (!user) {
     throw new Error("User not found");
   }
 
-  const isValidPassword = await bcrypt.hash(password, user.password);
+  if (user.isVerified) {
+    throw new Error("User is already verified");
+  }
+
+  const verificationToken = crypto.randomBytes(32).toString("hex");
+
+  await userRepository.updateUser(user.id, {
+    verificationToken,
+    updatedAt: new Date(),
+  });
+
+  await sendVerificationEmail(user.email, verificationToken);
+
+  return { message: "Verification email sent successfully" };
+};
+
+export const login = async (email, password) => {
+  const user = await userRepository.findUserByEmail(email);
+  if (!user) {
+    throw new Error("Invalid email or password");
+  }
+
+  const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    throw new Error("Invalid password");
+    throw new Error("Invalid email or password");
   }
 
   if (!user.isVerified) {
@@ -75,23 +95,41 @@ export const login = async (email, password) => {
   return { user: userWithoutPassword, token };
 };
 
-// Update a user
 export const updateUserById = async (id, data) => {
-  if (data.password) {
-    data.password = await bcrypt.hash(data.password, 10);
+  const allowedFields = ["name", "age", "phoneNumber"];
+  const invalidFields = Object.keys(data).filter(
+    (key) => !allowedFields.includes(key)
+  );
+
+  if (invalidFields.length > 0) {
+    throw new Error(
+      `Invalid fields provided: ${invalidFields.join(
+        ", "
+      )}. Only name, age, and phoneNumber can be updated.`
+    );
   }
+
+  const existingUser = await userRepository.findUserById(id);
+  if (!existingUser) {
+    throw new Error("User not found");
+  }
+
   return userRepository.updateUser(id, data);
 };
 
-// Delete a user
-export const deleteUserById = (id) => userRepository.deleteUser(id);
+export const deleteUserById = async (id) => {
+  try {
+    await userRepository.deleteUser(id);
+    return { message: "User deleted successfully" };
+  } catch (error) {
+    throw new Error("Failed to delete user: " + error.message);
+  }
+};
 
-// Get all users
 export const getAllUsers = async (queryParams) => {
   return userRepository.findAllUsers(queryParams);
 };
 
-// Get user by id
 export const getUserById = async (id) => {
   const user = await userRepository.findUserById(id);
   if (!user) {
