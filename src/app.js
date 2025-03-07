@@ -14,6 +14,16 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    status: "success",
+    message: "Welcome to GiggleFest API",
+    version: "1.0.0",
+    server: "running",
+  });
+});
+
 app.use("/api/v1", routes);
 app.use("/api-docs", documentationRoutes);
 
