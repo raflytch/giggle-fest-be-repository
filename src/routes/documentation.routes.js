@@ -15,7 +15,6 @@ try {
   if (fs.existsSync(swaggerPath)) {
     swaggerDocument = YAML.load(swaggerPath);
   } else {
-    console.error("Swagger file not found:", swaggerPath);
     swaggerDocument = {
       openapi: "3.0.0",
       info: {
@@ -27,7 +26,6 @@ try {
     };
   }
 } catch (error) {
-  console.error("Error loading swagger document:", error);
   swaggerDocument = {
     openapi: "3.0.0",
     info: {
@@ -40,14 +38,6 @@ try {
 }
 
 const router = Router();
-
-// Configure Swagger UI options to use CDN for assets
-const options = {
-  customCss: ".swagger-ui .topbar { display: none }",
-  swaggerOptions: {
-    url: "/api-docs/swagger.json",
-  },
-};
 
 router.get("/swagger.json", (req, res) => {
   res.setHeader("Content-Type", "application/json");

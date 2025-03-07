@@ -8,31 +8,25 @@
       "config": {
         "includeFiles": ["prisma/**/*", "src/docs/**/*"]
       }
-    },
-    {
-      "src": "node_modules/swagger-ui-dist/**",
-      "use": "@vercel/static"
     }
   ],
   "rewrites": [
-    { "source": "/api/v1/(.*)", "destination": "src/app.js" },
-    { "source": "/api-docs", "destination": "src/app.js" },
-    { "source": "/api-docs/(.*)", "destination": "src/app.js" }
-  ],
-  "routes": [
+    { "source": "/api/v1/(.*)", "destination": "/src/app.js" },
+    { "source": "/api-docs", "destination": "/src/app.js" },
+    { "source": "/api-docs/(.*)", "destination": "/src/app.js" },
     {
-      "src": "/swagger-ui-bundle.js",
-      "dest": "node_modules/swagger-ui-dist/swagger-ui-bundle.js"
+      "source": "/swagger-ui-bundle.js",
+      "destination": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui-bundle.js"
     },
     {
-      "src": "/swagger-ui-standalone-preset.js",
-      "dest": "node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js"
+      "source": "/swagger-ui-standalone-preset.js",
+      "destination": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui-standalone-preset.js"
     },
     {
-      "src": "/swagger-ui.css",
-      "dest": "node_modules/swagger-ui-dist/swagger-ui.css"
+      "source": "/swagger-ui.css",
+      "destination": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui.css"
     },
-    { "src": "/(.*)", "dest": "src/app.js" }
+    { "source": "/(.*)", "destination": "/src/app.js" }
   ],
   "headers": [
     {
