@@ -3,7 +3,7 @@ info:
   title: GiggleFest
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: https://giggle-fest-be-repository.vercel.app
 components:
   securitySchemes:
     bearerAuth:

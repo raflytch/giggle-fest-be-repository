@@ -1,16 +1,18 @@
 {
   "version": 2,
+  "buildCommand": "npx prisma generate",
   "builds": [
     {
       "src": "src/app.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["prisma/**/*"]
+        "includeFiles": ["prisma/**/*", "src/docs/**/*"]
       }
     }
   ],
   "rewrites": [
     { "source": "/api/v1/(.*)", "destination": "src/app.js" },
+    { "source": "/api-docs", "destination": "src/app.js" },
     { "source": "/api-docs/(.*)", "destination": "src/app.js" },
     { "source": "/(.*)", "destination": "src/app.js" }
   ],
@@ -29,5 +31,8 @@
         }
       ]
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
