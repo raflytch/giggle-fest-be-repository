@@ -11,10 +11,10 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/v1/(.*)", "destination": "src/app.js" },
-    { "source": "/api-docs", "destination": "src/app.js" },
-    { "source": "/api-docs/(.*)", "destination": "src/app.js" },
-    { "source": "/(.*)", "destination": "src/app.js" }
+    { "source": "/api/v1/(.*)", "destination": "/src/app.js" },
+    { "source": "/api-docs", "destination": "/src/app.js" },
+    { "source": "/api-docs/(.*)", "destination": "/src/app.js" },
+    { "source": "/(.*)", "destination": "/src/app.js" }
   ],
   "headers": [
     {

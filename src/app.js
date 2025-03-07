@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
     message: "Welcome to GiggleFest API",
     version: "1.0.0",
     server: "running",
+    timestamp: new Date().toISOString(),
   });
 });
 
@@ -31,4 +32,9 @@ app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app;

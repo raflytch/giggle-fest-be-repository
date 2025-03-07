@@ -41,10 +41,6 @@ try {
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.redirect("/api-docs");
-});
-
 router.use("/", swaggerUi.serve);
 router.get("/", swaggerUi.setup(swaggerDocument, { explorer: true }));
 
