@@ -8,13 +8,31 @@
       "config": {
         "includeFiles": ["prisma/**/*", "src/docs/**/*"]
       }
+    },
+    {
+      "src": "node_modules/swagger-ui-dist/**",
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [
-    { "source": "/api/v1/(.*)", "destination": "/src/app.js" },
-    { "source": "/api-docs", "destination": "/src/app.js" },
-    { "source": "/api-docs/(.*)", "destination": "/src/app.js" },
-    { "source": "/(.*)", "destination": "/src/app.js" }
+    { "source": "/api/v1/(.*)", "destination": "src/app.js" },
+    { "source": "/api-docs", "destination": "src/app.js" },
+    { "source": "/api-docs/(.*)", "destination": "src/app.js" }
+  ],
+  "routes": [
+    {
+      "src": "/swagger-ui-bundle.js",
+      "dest": "node_modules/swagger-ui-dist/swagger-ui-bundle.js"
+    },
+    {
+      "src": "/swagger-ui-standalone-preset.js",
+      "dest": "node_modules/swagger-ui-dist/swagger-ui-standalone-preset.js"
+    },
+    {
+      "src": "/swagger-ui.css",
+      "dest": "node_modules/swagger-ui-dist/swagger-ui.css"
+    },
+    { "src": "/(.*)", "dest": "src/app.js" }
   ],
   "headers": [
     {

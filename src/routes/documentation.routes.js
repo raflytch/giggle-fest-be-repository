@@ -41,7 +41,31 @@ try {
 
 const router = Router();
 
+// Configure Swagger UI options to use CDN for assets
+const options = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  swaggerOptions: {
+    url: "/api-docs/swagger.json",
+  },
+};
+
+router.get("/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerDocument);
+});
+
 router.use("/", swaggerUi.serve);
-router.get("/", swaggerUi.setup(swaggerDocument, { explorer: true }));
+router.get(
+  "/",
+  swaggerUi.setup(swaggerDocument, {
+    explorer: true,
+    customCssUrl:
+      "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui.css",
+    customJs: [
+      "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui-bundle.js",
+      "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.0.0/swagger-ui-standalone-preset.js",
+    ],
+  })
+);
 
 export default router;
