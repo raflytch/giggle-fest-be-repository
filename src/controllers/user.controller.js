@@ -1,7 +1,6 @@
 import * as userService from "../services/user.service.js";
 import { successResponse, errorResponse } from "../utils/response.js";
 
-// Register user
 export const registerUser = async (req, res) => {
   try {
     const result = await userService.register(req.body);
@@ -11,7 +10,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Resend verification email
 export const resendVerificationEmail = async (req, res) => {
   try {
     const { email } = req.body;
@@ -26,7 +24,6 @@ export const resendVerificationEmail = async (req, res) => {
   }
 };
 
-// Login user
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -35,8 +32,9 @@ export const loginUser = async (req, res) => {
     res.cookie("token", result.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     return successResponse(res, result, "Login successful");
@@ -95,7 +93,6 @@ export const deleteUserDetails = async (req, res) => {
   }
 };
 
-// Get all user details
 export const getAllUserDetails = async (req, res) => {
   try {
     if (req.user.role !== "admin") {
@@ -123,7 +120,6 @@ export const getAllUserDetails = async (req, res) => {
   }
 };
 
-// Get user details
 export const getUserDetails = async (req, res) => {
   try {
     const user = await userService.getUserById(parseInt(req.params.id));
@@ -136,7 +132,6 @@ export const getUserDetails = async (req, res) => {
   }
 };
 
-// Verify email
 export const verifyEmail = async (req, res) => {
   try {
     const { token } = req.params;
